@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout — Serial Number</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header">
+    <div class="wrap header-inner">
+        <a class="brand" href="index.html">
+            <span class="brand-mark" aria-hidden="true"></span>
+            <span class="brand-text">
+        <span class="brand-name">Serial Number</span>
+        <span class="brand-sub">Vintage Synthesizers &amp; Studio Gear</span>
+      </span>
+        </a>
+
+        <nav class="site-nav" aria-label="Main">
+            <a href="products.html">Catalog</a>
+            <a href="products.html?category=synthesizers">Synths</a>
+            <a href="products.html?category=drum-machines">Drums</a>
+            <a href="products.html?category=effects">Effects</a>
+        </nav>
+
+        <div class="header-actions">
+            <a class="link-quiet" href="login.html">Sign in</a>
+            <a class="cart-btn" href="cart.html">
+                Cart
+                <span class="cart-count" id="cartCount">0</span>
+            </a>
+        </div>
+
+        <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+
+    <div class="mobile-nav" id="mobileNav" hidden>
+        <a href="products.html">Catalog</a>
+        <a href="products.html?category=synthesizers">Synths</a>
+        <a href="products.html?category=drum-machines">Drums</a>
+        <a href="products.html?category=effects">Effects</a>
+        <a href="login.html">Sign in</a>
+    </div>
+</header>
+
+<main id="main" class="checkout">
+    <div class="wrap">
+
+        <!-- ---------- CHECKOUT ---------- -->
+        <div id="checkoutView" hidden>
+
+            <p class="page-eyebrow mono">Order intake · Step 2 of 2</p>
+            <h1 class="page-title">Checkout</h1>
+            <p class="page-lede">
+                This is where the units commit — stock comes off the floor the moment
+                the order goes through.
+            </p>
+
+            <div class="form-note" id="formNote" role="alert" hidden></div>
+
+            <div class="checkout-grid">
+
+                <!-- ----- FORM ----- -->
+                <form id="checkoutForm" class="field-set co-form" novalidate>
+
+                    <section class="block">
+                        <h2 class="block-title">Ships to</h2>
+
+                        <div class="field">
+                            <label class="field-label mono" for="name">
+                                <span class="field-index">01</span> Full name
+                            </label>
+                            <input class="field-input" type="text" id="name" name="name"
+                                   autocomplete="name" spellcheck="false">
+                            <p class="field-error" id="nameError" hidden></p>
+                        </div>
+
+                        <div class="field">
+                            <label class="field-label mono" for="line1">
+                                <span class="field-index">02</span> Street address
+                            </label>
+                            <input class="field-input" type="text" id="line1" name="line1"
+                                   autocomplete="shipping address-line1" spellcheck="false"
+                                   placeholder="Street and apartment">
+                            <p class="field-error" id="line1Error" hidden></p>
+                        </div>
+
+                        <div class="field-row-3">
+                            <div class="field">
+                                <label class="field-label mono" for="city">
+                                    <span class="field-index">03</span> City
+                                </label>
+                                <input class="field-input" type="text" id="city" name="city"
+                                       autocomplete="shipping address-level2" spellcheck="false">
+                                <p class="field-error" id="cityError" hidden></p>
+                            </div>
+
+                            <div class="field">
+                                <label class="field-label mono" for="state">
+                                    <span class="field-index">04</span> State
+                                </label>
+                                <input class="field-input" type="text" id="state" name="state"
+                                       autocomplete="shipping address-level1" maxlength="2"
+                                       spellcheck="false" placeholder="NY">
+                                <p class="field-error" id="stateError" hidden></p>
+                            </div>
+
+                            <div class="field">
+                                <label class="field-label mono" for="zip">
+                                    <span class="field-index">05</span> ZIP
+                                </label>
+                                <input class="field-input" type="text" id="zip" name="zip"
+                                       autocomplete="shipping postal-code" inputmode="numeric"
+                                       maxlength="5" placeholder="10453">
+                                <p class="field-error" id="zipError" hidden></p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="block">
+                        <h2 class="block-title">Payment</h2>
+
+                        <div class="field">
+                            <label class="field-label mono" for="card">
+                                <span class="field-index">06</span> Card number
+                            </label>
+                            <input class="field-input" type="text" id="card" name="card"
+                                   autocomplete="cc-number" inputmode="numeric"
+                                   spellcheck="false" placeholder="4242 4242 4242 4242">
+                            <p class="field-error" id="cardError" hidden></p>
+                        </div>
+
+                        <div class="field-row-2">
+                            <div class="field">
+                                <label class="field-label mono" for="exp">
+                                    <span class="field-index">07</span> Expiry
+                                </label>
+                                <input class="field-input" type="text" id="exp" name="exp"
+                                       autocomplete="cc-exp" inputmode="numeric"
+                                       maxlength="5" placeholder="MM/YY">
+                                <p class="field-error" id="expError" hidden></p>
+                            </div>
+
+                            <div class="field">
+                                <label class="field-label mono" for="cvc">
+                                    <span class="field-index">08</span> CVC
+                                </label>
+                                <input class="field-input" type="text" id="cvc" name="cvc"
+                                       autocomplete="cc-csc" inputmode="numeric"
+                                       maxlength="4" placeholder="123">
+                                <p class="field-error" id="cvcError" hidden></p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <button type="submit" class="btn btn-block" id="submitBtn">Place order</button>
+                    <p class="auth-alt">Payment is simulated — nothing is charged.</p>
+                </form>
+
+                <!-- ----- SUMMARY ----- -->
+                <aside class="summary" aria-labelledby="coSummaryTitle">
+                    <section class="block">
+                        <h2 class="block-title" id="coSummaryTitle">Order</h2>
+                        <div id="coItems"></div>
+                        <div id="coTotals"></div>
+                    </section>
+
+                    <section class="block">
+                        <h2 class="block-title">Test cards</h2>
+                        <dl class="spec-sheet">
+                            <div class="spec-row">
+                                <dt class="mono">Approves</dt><dd class="mono">4242 4242 4242 4242</dd>
+                            </div>
+                            <div class="spec-row">
+                                <dt class="mono">Declines</dt><dd class="mono">4000 0000 0000 0002</dd>
+                            </div>
+                        </dl>
+                        <p class="summary-note">Any expiry in the future, any CVC.</p>
+                    </section>
+                </aside>
+
+            </div>
+        </div>
+
+        <!-- ---------- RECEIPT ---------- -->
+        <div class="receipt" id="receipt" hidden>
+            <p class="page-eyebrow mono">Order record created</p>
+            <h2 class="receipt-id" id="receiptId">—</h2>
+            <p class="receipt-meta mono" id="receiptMeta"></p>
+            <p class="receipt-note" id="receiptNote"></p>
+            <div class="receipt-actions">
+                <a class="btn" id="receiptLink" href="orders.html">View the order</a>
+                <a class="btn btn-ghost" href="products.html">Back to the floor</a>
+            </div>
+        </div>
+
+        <!-- ---------- NOTHING TO CHECK OUT ---------- -->
+        <div class="empty" id="emptyCheckout" hidden>
+            <h2 class="empty-title">Nothing to check out</h2>
+            <p class="empty-note">
+                The cart has no live units. If a listing closed in there, clear it
+                from the cart first.
+            </p>
+            <div class="receipt-actions">
+                <a class="btn btn-ghost" href="cart.html">Back to cart</a>
+                <a class="btn" href="products.html">Browse the floor</a>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+    <div class="wrap footer-inner">
+        <div class="footer-brand">
+            <span class="brand-mark" aria-hidden="true"></span>
+            <div>
+                <div class="brand-name">Serial Number</div>
+                <p class="footer-blurb">Bench-tested vintage instruments, sold one at a time.</p>
+            </div>
+        </div>
+
+        <nav class="footer-cols" aria-label="Footer">
+            <div>
+                <h3>Catalog</h3>
+                <a href="products.html?category=synthesizers">Synthesizers</a>
+                <a href="products.html?category=drum-machines">Drum machines</a>
+                <a href="products.html?category=effects">Effects</a>
+                <a href="products.html">Everything</a>
+            </div>
+            <div>
+                <h3>Account</h3>
+                <a href="login.html">Sign in</a>
+                <a href="signup.html">Create account</a>
+                <a href="orders.html">Orders</a>
+                <a href="cart.html">Cart</a>
+            </div>
+            <div>
+                <h3>Shop</h3>
+                <a href="#">Shipping</a>
+                <a href="#">Returns</a>
+                <a href="#">Bench policy</a>
+                <a href="#">Contact</a>
+            </div>
+        </nav>
+    </div>
+
+    <div class="wrap footer-base">
+        <span>© <span id="year"></span> Serial Number</span>
+        <span class="mono">EST. 2026 · BRONX, NY</span>
+    </div>
+</footer>
+<script src="js/checkout.js"></script>
+</body>
+</html>

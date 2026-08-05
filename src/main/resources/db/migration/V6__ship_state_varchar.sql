@@ -1,0 +1,1 @@
+ALTER TABLE orders ALTER COLUMN ship_state TYPE VARCHAR(2)

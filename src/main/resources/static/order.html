@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order — Serial Number</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header">
+    <div class="wrap header-inner">
+        <a class="brand" href="index.html">
+            <span class="brand-mark" aria-hidden="true"></span>
+            <span class="brand-text">
+        <span class="brand-name">Serial Number</span>
+        <span class="brand-sub">Vintage Synthesizers &amp; Studio Gear</span>
+      </span>
+        </a>
+
+        <nav class="site-nav" aria-label="Main">
+            <a href="products.html">Catalog</a>
+            <a href="products.html?category=synthesizers">Synths</a>
+            <a href="products.html?category=drum-machines">Drums</a>
+            <a href="products.html?category=effects">Effects</a>
+        </nav>
+
+        <div class="header-actions">
+            <a class="link-quiet" href="login.html">Sign in</a>
+            <a class="cart-btn" href="cart.html">
+                Cart
+                <span class="cart-count" id="cartCount">0</span>
+            </a>
+        </div>
+
+        <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+
+    <div class="mobile-nav" id="mobileNav" hidden>
+        <a href="products.html">Catalog</a>
+        <a href="products.html?category=synthesizers">Synths</a>
+        <a href="products.html?category=drum-machines">Drums</a>
+        <a href="products.html?category=effects">Effects</a>
+        <a href="login.html">Sign in</a>
+    </div>
+</header>
+
+<main id="main" class="orders">
+    <div class="wrap">
+
+        <!-- ---------- ORDER VIEW ---------- -->
+        <div id="orderView" hidden>
+
+            <nav class="breadcrumb" aria-label="Breadcrumb">
+                <ol>
+                    <li><a href="orders.html">Orders</a></li>
+                    <li aria-current="page" id="crumbCurrent">—</li>
+                </ol>
+            </nav>
+
+            <p class="page-eyebrow mono">Order record</p>
+            <div class="order-title-row">
+                <h1 class="page-title" id="orderTitle">—</h1>
+                <span class="status" id="statusChip"></span>
+            </div>
+            <p class="page-lede" id="orderMeta"></p>
+
+            <div class="form-note" id="flash" role="alert" hidden></div>
+
+            <div class="detail">
+
+                <div>
+                    <section class="block" aria-labelledby="progressTitle">
+                        <h2 class="block-title" id="progressTitle">Progress</h2>
+                        <div id="timelineBox"></div>
+                        <div id="noteBox"></div>
+                    </section>
+
+                    <section class="block" aria-labelledby="unitsTitle">
+                        <h2 class="block-title" id="unitsTitle">Units</h2>
+                        <div id="itemsBox"></div>
+                    </section>
+                </div>
+
+                <div>
+                    <section class="block" aria-labelledby="shipTitle">
+                        <h2 class="block-title" id="shipTitle">Ships to</h2>
+                        <div class="address" id="addressBox"></div>
+                    </section>
+
+                    <section class="block" aria-labelledby="payTitle">
+                        <h2 class="block-title" id="payTitle">Payment</h2>
+                        <div id="paymentBox"></div>
+                    </section>
+
+                    <section class="block" aria-labelledby="actionsTitle">
+                        <h2 class="block-title" id="actionsTitle">Actions</h2>
+                        <div id="actionsBox"></div>
+                    </section>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ---------- NOT FOUND / NOT YOURS ---------- -->
+        <div class="empty" id="notFound" hidden>
+            <h2 class="empty-title">No such order in your ledger</h2>
+            <p class="empty-note">
+                Either the number is wrong, or the order belongs to a different account.
+            </p>
+            <a class="btn" href="orders.html">Back to orders</a>
+        </div>
+
+    </div>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+    <div class="wrap footer-inner">
+        <div class="footer-brand">
+            <span class="brand-mark" aria-hidden="true"></span>
+            <div>
+                <div class="brand-name">Serial Number</div>
+                <p class="footer-blurb">Bench-tested vintage instruments, sold one at a time.</p>
+            </div>
+        </div>
+
+        <nav class="footer-cols" aria-label="Footer">
+            <div>
+                <h3>Catalog</h3>
+                <a href="products.html?category=synthesizers">Synthesizers</a>
+                <a href="products.html?category=drum-machines">Drum machines</a>
+                <a href="products.html?category=effects">Effects</a>
+                <a href="products.html">Everything</a>
+            </div>
+            <div>
+                <h3>Account</h3>
+                <a href="login.html">Sign in</a>
+                <a href="signup.html">Create account</a>
+                <a href="orders.html">Orders</a>
+                <a href="cart.html">Cart</a>
+            </div>
+            <div>
+                <h3>Shop</h3>
+                <a href="#">Shipping</a>
+                <a href="#">Returns</a>
+                <a href="#">Bench policy</a>
+                <a href="#">Contact</a>
+            </div>
+        </nav>
+    </div>
+
+    <div class="wrap footer-base">
+        <span>© <span id="year"></span> Serial Number</span>
+        <span class="mono">EST. 2026 · BRONX, NY</span>
+    </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalog — Serial Number</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header">
+    <div class="wrap header-inner">
+        <a class="brand" href="index.html">
+            <span class="brand-mark" aria-hidden="true"></span>
+            <span class="brand-text">
+        <span class="brand-name">Serial Number</span>
+        <span class="brand-sub">Vintage Synthesizers &amp; Studio Gear</span>
+      </span>
+        </a>
+
+        <nav class="site-nav" aria-label="Main">
+            <a href="products.html">Catalog</a>
+            <a href="products.html?category=synthesizers">Synths</a>
+            <a href="products.html?category=drum-machines">Drums</a>
+            <a href="products.html?category=effects">Effects</a>
+        </nav>
+
+        <div class="header-actions">
+            <a class="link-quiet" href="login.html">Sign in</a>
+            <a class="cart-btn" href="cart.html">
+                Cart
+                <span class="cart-count" id="cartCount">0</span>
+            </a>
+        </div>
+
+        <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+
+    <div class="mobile-nav" id="mobileNav" hidden>
+        <a href="products.html">Catalog</a>
+        <a href="products.html?category=synthesizers">Synths</a>
+        <a href="products.html?category=drum-machines">Drums</a>
+        <a href="products.html?category=effects">Effects</a>
+        <a href="login.html">Sign in</a>
+    </div>
+</header>
+
+<main id="main" class="catalog">
+    <div class="wrap">
+
+        <p class="page-eyebrow mono">Stock ledger</p>
+        <h1 class="page-title">Catalog</h1>
+        <p class="page-lede">
+            Every listing is a single machine with its own serial and bench notes.
+            When it sells, the listing closes.
+        </p>
+
+        <!-- ---------- TOOLBAR ---------- -->
+        <div class="toolbar">
+            <div class="toolbar-row">
+                <input
+                        class="field-input toolbar-search"
+                        type="search"
+                        id="searchInput"
+                        placeholder="Search maker, model, or serial…"
+                        aria-label="Search the catalog"
+                        spellcheck="false">
+
+                <select class="toolbar-select" id="sortSelect" aria-label="Sort catalog">
+                    <option value="featured">Sort · Featured</option>
+                    <option value="price-asc">Price · Low to high</option>
+                    <option value="price-desc">Price · High to low</option>
+                    <option value="year-asc">Year · Oldest first</option>
+                    <option value="year-desc">Year · Newest first</option>
+                </select>
+            </div>
+
+            <div class="toolbar-row">
+                <div class="filter-tabs" id="categoryTabs">
+                    <button class="filter-tab" data-category="" aria-pressed="false">All</button>
+                    <button class="filter-tab" data-category="synthesizers" aria-pressed="false">Synthesizers</button>
+                    <button class="filter-tab" data-category="drum-machines" aria-pressed="false">Drum machines</button>
+                    <button class="filter-tab" data-category="effects" aria-pressed="false">Effects</button>
+                </div>
+
+                <div class="grade-filter" id="gradeFilter">
+                    <span class="grade-filter-label mono">Grade</span>
+                    <button class="grade-toggle" data-grade="A" aria-pressed="false" aria-label="Filter grade A">
+                        <span class="grade grade-a">A</span>
+                    </button>
+                    <button class="grade-toggle" data-grade="B" aria-pressed="false" aria-label="Filter grade B">
+                        <span class="grade grade-b">B</span>
+                    </button>
+                    <button class="grade-toggle" data-grade="C" aria-pressed="false" aria-label="Filter grade C">
+                        <span class="grade grade-c">C</span>
+                    </button>
+                    <button class="grade-toggle" data-grade="D" aria-pressed="false" aria-label="Filter grade D">
+                        <span class="grade grade-d">D</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <p class="result-line mono">
+            <span id="resultCount" role="status" aria-live="polite"></span>
+            <span id="pageInfo"></span>
+        </p>
+
+        <!-- ---------- RESULTS ---------- -->
+        <div class="card-grid" id="cardGrid"></div>
+
+        <div class="empty" id="emptyState" hidden>
+            <h2 class="empty-title">No units match those filters</h2>
+            <p class="empty-note">Loosen the grade filter or clear the search to see the full floor.</p>
+            <button class="btn" id="clearFilters">Clear filters</button>
+        </div>
+
+        <nav class="pager" id="pager" aria-label="Catalog pages" hidden></nav>
+
+    </div>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+    <div class="wrap footer-inner">
+        <div class="footer-brand">
+            <span class="brand-mark" aria-hidden="true"></span>
+            <div>
+                <div class="brand-name">Serial Number</div>
+                <p class="footer-blurb">Bench-tested vintage instruments, sold one at a time.</p>
+            </div>
+        </div>
+
+        <nav class="footer-cols" aria-label="Footer">
+            <div>
+                <h3>Catalog</h3>
+                <a href="products.html?category=synthesizers">Synthesizers</a>
+                <a href="products.html?category=drum-machines">Drum machines</a>
+                <a href="products.html?category=effects">Effects</a>
+                <a href="products.html">Everything</a>
+            </div>
+            <div>
+                <h3>Account</h3>
+                <a href="login.html">Sign in</a>
+                <a href="signup.html">Create account</a>
+                <a href="orders.html">Orders</a>
+                <a href="cart.html">Cart</a>
+            </div>
+            <div>
+                <h3>Shop</h3>
+                <a href="#">Shipping</a>
+                <a href="#">Returns</a>
+                <a href="#">Bench policy</a>
+                <a href="#">Contact</a>
+            </div>
+        </nav>
+    </div>
+
+    <div class="wrap footer-base">
+        <span>© <span id="year"></span> Serial Number</span>
+        <span class="mono">EST. 2026 · BRONX, NY</span>
+    </div>
+</footer>
+<script src="js/products.js"></script>
+</body>
+</html>

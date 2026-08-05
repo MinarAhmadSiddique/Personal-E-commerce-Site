@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create account — Serial Number</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header">
+    <div class="wrap header-inner">
+        <a class="brand" href="index.html">
+            <span class="brand-mark" aria-hidden="true"></span>
+            <span class="brand-text">
+        <span class="brand-name">Serial Number</span>
+        <span class="brand-sub">Vintage Synthesizers &amp; Studio Gear</span>
+      </span>
+        </a>
+
+        <nav class="site-nav" aria-label="Main">
+            <a href="products.html">Catalog</a>
+            <a href="products.html?category=synthesizers">Synths</a>
+            <a href="products.html?category=drum-machines">Drums</a>
+            <a href="products.html?category=effects">Effects</a>
+        </nav>
+
+        <div class="header-actions">
+            <a class="link-quiet" href="login.html">Sign in</a>
+            <a class="cart-btn" href="cart.html">
+                Cart
+                <span class="cart-count" id="cartCount">0</span>
+            </a>
+        </div>
+
+        <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+
+    <div class="mobile-nav" id="mobileNav" hidden>
+        <a href="products.html">Catalog</a>
+        <a href="products.html?category=synthesizers">Synths</a>
+        <a href="products.html?category=drum-machines">Drums</a>
+        <a href="products.html?category=effects">Effects</a>
+        <a href="login.html">Sign in</a>
+    </div>
+</header>
+
+<main id="main" class="auth">
+    <div class="wrap auth-wrap">
+
+        <!-- ---------- FORM SIDE ---------- -->
+        <section class="auth-form-side" aria-labelledby="formTitle">
+
+            <p class="auth-eyebrow mono">Form SN-01 · Account intake</p>
+            <h1 class="auth-title" id="formTitle">Create account</h1>
+            <p class="auth-lede">
+                An account holds your order history and lets you reserve a unit while you decide.
+                We only ask for what shipping requires.
+            </p>
+
+            <!-- Form-level message region -->
+            <div class="form-note" id="formNote" role="alert" hidden></div>
+
+            <form id="signupForm" class="field-set" novalidate>
+
+                <div class="field">
+                    <label class="field-label mono" for="name">
+                        <span class="field-index">01</span> Full name
+                    </label>
+                    <input
+                            class="field-input"
+                            type="text"
+                            id="name"
+                            name="name"
+                            autocomplete="name"
+                            spellcheck="false"
+                            placeholder="As it should appear on the shipping label">
+                    <p class="field-error" id="nameError" hidden></p>
+                </div>
+
+                <div class="field">
+                    <label class="field-label mono" for="email">
+                        <span class="field-index">02</span> Email
+                    </label>
+                    <input
+                            class="field-input"
+                            type="email"
+                            id="email"
+                            name="email"
+                            autocomplete="email"
+                            spellcheck="false"
+                            placeholder="you@example.com">
+                    <p class="field-help">Order confirmations and bench notes go here.</p>
+                    <p class="field-error" id="emailError" hidden></p>
+                </div>
+
+                <div class="field">
+                    <label class="field-label mono" for="password">
+                        <span class="field-index">03</span> Password
+                    </label>
+                    <div class="field-with-action">
+                        <input
+                                class="field-input"
+                                type="password"
+                                id="password"
+                                name="password"
+                                autocomplete="new-password"
+                                placeholder="At least 8 characters">
+                        <button type="button" class="field-action mono" id="togglePassword" aria-pressed="false">
+                            Show
+                        </button>
+                    </div>
+
+                    <div class="meter" id="meter" hidden>
+                        <div class="meter-track" aria-hidden="true">
+                            <span class="meter-fill" id="meterFill"></span>
+                        </div>
+                        <span class="meter-label mono" id="meterLabel"></span>
+                    </div>
+
+                    <p class="field-error" id="passwordError" hidden></p>
+                </div>
+
+                <div class="field">
+                    <label class="field-label mono" for="confirm">
+                        <span class="field-index">04</span> Confirm password
+                    </label>
+                    <input
+                            class="field-input"
+                            type="password"
+                            id="confirmPassword"
+                            name="confirm"
+                            autocomplete="new-password"
+                            placeholder="Type it again">
+                    <p class="field-error" id="confirmError" hidden></p>
+                </div>
+
+                <button type="submit" class="btn btn-block" id="submitBtn">Create account</button>
+
+                <p class="auth-alt">
+                    Already have an account?
+                    <a href="login.html">Sign in</a>
+                </p>
+            </form>
+        </section>
+
+        <!-- ---------- ASIDE: what an account does ---------- -->
+        <aside class="auth-aside" aria-labelledby="asideTitle">
+            <h2 class="auth-aside-title" id="asideTitle">What the account holds</h2>
+
+            <dl class="spec-sheet">
+                <div class="spec-row">
+                    <dt class="mono">Orders</dt>
+                    <dd class="mono">Full history, with serials</dd>
+                </div>
+                <div class="spec-row">
+                    <dt class="mono">Holds</dt>
+                    <dd class="mono">48 hours per unit</dd>
+                </div>
+                <div class="spec-row">
+                    <dt class="mono">Bench notes</dt>
+                    <dd class="mono">Sent on despatch</dd>
+                </div>
+                <div class="spec-row">
+                    <dt class="mono">Returns</dt>
+                    <dd class="mono">14 days, no reason</dd>
+                </div>
+            </dl>
+
+            <p class="auth-aside-note">
+                One machine, one listing. When a unit sells the listing closes, so an account
+                is the only way to hold something while you think it over.
+            </p>
+        </aside>
+
+    </div>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+    <div class="wrap footer-inner">
+        <div class="footer-brand">
+            <span class="brand-mark" aria-hidden="true"></span>
+            <div>
+                <div class="brand-name">Serial Number</div>
+                <p class="footer-blurb">Bench-tested vintage instruments, sold one at a time.</p>
+            </div>
+        </div>
+
+        <nav class="footer-cols" aria-label="Footer">
+            <div>
+                <h3>Catalog</h3>
+                <a href="products.html?category=synthesizers">Synthesizers</a>
+                <a href="products.html?category=drum-machines">Drum machines</a>
+                <a href="products.html?category=effects">Effects</a>
+                <a href="products.html">Everything</a>
+            </div>
+            <div>
+                <h3>Account</h3>
+                <a href="login.html">Sign in</a>
+                <a href="signup.html">Create account</a>
+                <a href="orders.html">Orders</a>
+                <a href="cart.html">Cart</a>
+            </div>
+            <div>
+                <h3>Shop</h3>
+                <a href="#">Shipping</a>
+                <a href="#">Returns</a>
+                <a href="#">Bench policy</a>
+                <a href="#">Contact</a>
+            </div>
+        </nav>
+    </div>
+
+    <div class="wrap footer-base">
+        <span>© <span id="year"></span> Serial Number</span>
+        <span class="mono">EST. 2026 · BRONX, NY</span>
+    </div>
+</footer>
+<script src="js/signup.js"></script>
+</body>
+</html>

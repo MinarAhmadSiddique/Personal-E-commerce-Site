@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products — Serial Number · Back of house</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ============================================================
+           Serial Number — back of house · products (internal styles)
+           ============================================================ */
+
+        :root {
+            --chassis:      #151310;
+            --chassis-2:    #1F1C18;
+            --chassis-3:    #2A2620;
+            --panel:        #E8E2D4;
+            --panel-dim:    #B4AD9C;
+            --panel-faint:  #7A7466;
+            --brass:        #B8863A;
+            --brass-lit:    #D9A94E;
+            --amber:        #D4A017;
+            --rule:         #34302A;
+            --rule-soft:    #262320;
+            --ok:           #7FA650;
+            --warn:         #C9992E;
+            --bad:          #96594A;
+            --bad-lit:      #D98878;
+            --grade-a: #7FA650;
+            --grade-b: #C9992E;
+            --grade-c: #C2743A;
+            --grade-d: #96594A;
+
+            --display: "Barlow Condensed", "Arial Narrow", sans-serif;
+            --body:    "Archivo", system-ui, sans-serif;
+            --mono:    "Roboto Mono", ui-monospace, monospace;
+
+            --step--1: 0.8125rem;
+            --step-0:  0.9375rem;
+            --step-1:  1.0625rem;
+            --step-2:  1.375rem;
+            --step-3:  1.875rem;
+            --step-4:  clamp(2.25rem, 4vw, 3rem);
+
+            --sp-1: 0.375rem;
+            --sp-2: 0.75rem;
+            --sp-3: 1.25rem;
+            --sp-4: 2rem;
+            --sp-5: 3rem;
+            --sp-6: 5rem;
+
+            --wrap: 1220px;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            background: var(--chassis);
+            color: var(--panel);
+            font-family: var(--body);
+            font-size: var(--step-0);
+            line-height: 1.55;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, p, table, figure { margin: 0; }
+        a { color: inherit; text-decoration: none; }
+        button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+
+        .mono {
+            font-family: var(--mono);
+            font-size: 0.8em;
+            letter-spacing: 0.04em;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .wrap { max-width: var(--wrap); margin-inline: auto; padding-inline: var(--sp-3); }
+
+        :focus-visible { outline: 2px solid var(--brass-lit); outline-offset: 3px; }
+
+        /* ---------- TOPBAR + NAV ---------- */
+
+        .topbar { border-bottom: 1px solid var(--rule); }
+
+        .topbar-inner { display: flex; align-items: center; gap: var(--sp-3); min-height: 60px; }
+
+        .brand { display: flex; align-items: center; gap: var(--sp-2); }
+
+        .brand-mark {
+            width: 22px; height: 22px; flex: none;
+            border: 1px solid var(--brass);
+            background:
+                    linear-gradient(var(--brass), var(--brass)) center / 100% 2px no-repeat,
+                    linear-gradient(var(--brass), var(--brass)) center / 2px 100% no-repeat;
+        }
+
+        .brand-name {
+            font-family: var(--display);
+            font-weight: 700;
+            font-size: var(--step-1);
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+        }
+
+        .boh-tag {
+            font-family: var(--mono);
+            font-size: 0.5625rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--chassis);
+            background: var(--brass);
+            padding: 2px 7px;
+        }
+
+        .topbar-side {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: var(--sp-3);
+            font-family: var(--mono);
+            font-size: 0.6875rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+        .who { color: var(--panel-faint); }
+        .top-link { color: var(--panel-dim); }
+        .top-link:hover { color: var(--brass-lit); }
+
+        .adminnav { border-bottom: 1px solid var(--rule); background: var(--chassis-2); }
+        .adminnav-inner { display: flex; gap: var(--sp-3); overflow-x: auto; }
+        .adminnav a {
+            font-family: var(--mono);
+            font-size: 0.6875rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--panel-dim);
+            padding: var(--sp-2) 0;
+            white-space: nowrap;
+        }
+        .adminnav a:hover { color: var(--brass-lit); }
+        .adminnav a.is-active { color: var(--brass-lit); box-shadow: inset 0 -2px 0 var(--brass); }
+
+        /* ---------- PAGE ---------- */
+
+        .page { padding-block: var(--sp-4) var(--sp-6); }
+
+        .eyebrow {
+            font-family: var(--mono);
+            color: var(--brass);
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            font-size: 0.6875rem;
+        }
+
+        .title {
+            font-family: var(--display);
+            font-size: var(--step-4);
+            font-weight: 700;
+            line-height: 0.95;
+            text-transform: uppercase;
+            margin-block: var(--sp-2) var(--sp-4);
+        }
+
+        .section-title {
+            font-family: var(--display);
+            font-size: var(--step-2);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            padding-bottom: var(--sp-2);
+            border-bottom: 1px solid var(--rule);
+            margin-bottom: var(--sp-3);
+        }
+
+        /* ---------- FLASH ---------- */
+
+        .form-note {
+            padding: var(--sp-2) var(--sp-3);
+            border-left: 3px solid var(--brass);
+            background: var(--chassis-2);
+            font-size: var(--step--1);
+            margin-bottom: var(--sp-3);
+        }
+        .form-note-error { border-left-color: var(--bad); }
+        .form-note-ok    { border-left-color: var(--ok); }
+
+        /* ---------- LIST BAR ---------- */
+
+        .listbar {
+            display: flex;
+            gap: var(--sp-3);
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: var(--sp-3);
+        }
+
+        .listbar .search { flex: 1 1 240px; max-width: 380px; }
+
+        .listbar-actions { margin-left: auto; display: flex; gap: var(--sp-2); }
+
+        .count-line {
+            font-family: var(--mono);
+            font-size: 0.625rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--panel-faint);
+            margin-bottom: var(--sp-2);
+        }
+
+        /* ---------- TABLE ---------- */
+
+        .prod-table { width: 100%; border-collapse: collapse; border: 1px solid var(--rule); }
+
+        .prod-table th {
+            font-family: var(--mono);
+            font-size: 0.625rem;
+            font-weight: 500;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--panel-faint);
+            text-align: left;
+            padding: var(--sp-2) var(--sp-2);
+            border-bottom: 1px solid var(--rule);
+            background: var(--chassis-2);
+        }
+
+        .prod-table td {
+            font-size: var(--step--1);
+            color: var(--panel-dim);
+            padding: var(--sp-2) var(--sp-2);
+            border-bottom: 1px solid var(--rule-soft);
+            vertical-align: middle;
+        }
+        .prod-table tr:last-child td { border-bottom: 0; }
+        .prod-table .num { text-align: right; }
+        .prod-table .serial { color: var(--brass-lit); }
+        tr.is-sold td { opacity: 0.55; }
+
+        .row-btn {
+            font-family: var(--mono);
+            font-size: 0.625rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--panel-faint);
+            padding: 2px 6px;
+            border: 1px solid var(--rule);
+            transition: color .15s, border-color .15s;
+        }
+        .row-btn:hover { color: var(--brass-lit); border-color: var(--brass); }
+
+        /* ---------- GRADE + STATUS CHIPS ---------- */
+
+        .grade {
+            display: inline-grid;
+            place-items: center;
+            width: 1.5rem;
+            height: 1.5rem;
+            font-family: var(--mono);
+            font-size: 0.6875rem;
+            font-weight: 500;
+            color: var(--chassis);
+            background: var(--panel-dim);
+        }
+        .grade-a { background: var(--grade-a); }
+        .grade-b { background: var(--grade-b); }
+        .grade-c { background: var(--grade-c); }
+        .grade-d { background: var(--grade-d); }
+
+        .status {
+            font-family: var(--mono);
+            font-size: 0.625rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            padding: 2px 8px;
+            border: 1px solid var(--rule);
+            color: var(--panel-dim);
+            white-space: nowrap;
+        }
+        .status-live { border-color: var(--ok); color: var(--ok); }
+        .status-bench { border-color: var(--amber); color: var(--amber); }
+        .status-hold { border-color: var(--brass); color: var(--brass-lit); }
+        .status-sold { border-color: var(--rule); color: var(--panel-faint); }
+
+        /* ---------- FORM ---------- */
+
+        .editor {
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+            gap: var(--sp-5);
+            align-items: start;
+        }
+
+        .field { margin-bottom: var(--sp-3); }
+
+        .field-label {
+            display: block;
+            font-family: var(--mono);
+            color: var(--panel-dim);
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            font-size: 0.625rem;
+            margin-bottom: var(--sp-1);
+        }
+
+        .field-input {
+            width: 100%;
+            background: var(--chassis-2);
+            border: 1px solid var(--rule);
+            border-radius: 0;
+            color: var(--panel);
+            font-family: var(--body);
+            font-size: var(--step-0);
+            padding: 0.6rem var(--sp-2);
+            transition: border-color .15s, background .15s;
+        }
+        .field-input::placeholder { color: var(--panel-faint); }
+        .field-input:hover { background: var(--chassis-3); }
+        .field-input:focus { outline: none; border-color: var(--brass); background: var(--chassis-3); }
+        .field-input.is-invalid { border-color: var(--bad); }
+
+        textarea.field-input { resize: vertical; min-height: 5.5rem; }
+
+        select.field-input {
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5'%3E%3Cpath d='M0 0l4 5 4-5z' fill='%23B4AD9C'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.65rem center;
+            cursor: pointer;
+        }
+
+        input[type="range"] { accent-color: var(--brass); width: 100%; }
+
+        .field-error {
+            color: var(--bad-lit);
+            font-size: var(--step--1);
+            margin-top: 0.35rem;
+        }
+
+        .field-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-3); }
+        .field-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--sp-3); }
+
+        .check {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--sp-2);
+            cursor: pointer;
+            user-select: none;
+            padding-top: 0.6rem;
+        }
+        .check input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+        .check-box {
+            width: 15px; height: 15px; flex: none;
+            border: 1px solid var(--rule);
+            background: var(--chassis-2);
+            display: inline-grid;
+            place-items: center;
+        }
+        .check input:checked + .check-box { border-color: var(--brass); background: var(--brass); }
+        .check input:checked + .check-box::after {
+            content: "";
+            width: 7px; height: 4px;
+            border-left: 2px solid var(--chassis);
+            border-bottom: 2px solid var(--chassis);
+            transform: translateY(-1px) rotate(-45deg);
+        }
+        .check input:focus-visible + .check-box { outline: 2px solid var(--brass-lit); outline-offset: 2px; }
+        .check-text { color: var(--panel-dim); font-size: var(--step--1); }
+
+        .slugline {
+            font-family: var(--mono);
+            font-size: 0.6875rem;
+            letter-spacing: 0.08em;
+            color: var(--panel-faint);
+            margin-bottom: var(--sp-3);
+        }
+        .slugline span { color: var(--panel-dim); }
+
+        .form-actions { display: flex; gap: var(--sp-2); margin-top: var(--sp-3); flex-wrap: wrap; }
+
+        /* ---------- BUTTONS ---------- */
+
+        .btn {
+            display: inline-block;
+            background: var(--brass);
+            color: var(--chassis);
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            padding: 0.7rem var(--sp-3);
+            border: 1px solid var(--brass);
+            transition: background .15s;
+        }
+        .btn:hover { background: var(--brass-lit); }
+        .btn:disabled { opacity: 0.5; cursor: default; }
+
+        .btn-ghost { background: transparent; color: var(--brass-lit); }
+        .btn-ghost:hover { background: var(--chassis-2); }
+
+        /* ---------- PANEL PREVIEW (the storefront generator, reused) ---------- */
+
+        .preview { position: sticky; top: var(--sp-3); }
+
+        .preview-note {
+            color: var(--panel-faint);
+            font-size: var(--step--1);
+            margin-top: var(--sp-2);
+        }
+
+        .panel {
+            --hue: 30;
+            position: relative;
+            background: var(--chassis-2);
+            border: 1px solid var(--rule);
+            overflow: hidden;
+        }
+
+        .panel-face {
+            position: relative;
+            background: repeating-linear-gradient(180deg,
+            hsl(var(--hue) 6% 16%) 0 2px, hsl(var(--hue) 6% 15%) 2px 4px);
+            padding: var(--sp-4);
+            min-height: 240px;
+            display: flex;
+            flex-direction: column;
+            gap: var(--sp-4);
+        }
+
+        .panel-wood .panel-face {
+            border-left: 10px solid hsl(24 32% 22%);
+            border-right: 10px solid hsl(24 32% 22%);
+        }
+
+        .panel-brand {
+            color: hsl(var(--hue) 12% 62%);
+            font-size: 0.6875rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+        }
+
+        .faders { display: flex; gap: var(--sp-3); align-items: flex-end; height: 80px; }
+
+        .fader {
+            --pos: 50%;
+            position: relative;
+            width: 5px;
+            height: 100%;
+            background: hsl(var(--hue) 8% 10%);
+            border: 1px solid hsl(var(--hue) 8% 22%);
+        }
+        .fader::after {
+            content: "";
+            position: absolute;
+            left: -4px; right: -4px;
+            bottom: var(--pos);
+            height: 7px;
+            background: linear-gradient(hsl(var(--hue) 10% 48%), hsl(var(--hue) 10% 32%));
+        }
+
+        .knobs { display: flex; gap: var(--sp-2); flex-wrap: wrap; }
+
+        .knob {
+            --rot: 0deg;
+            position: relative;
+            width: 30px; height: 30px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 34% 30%, hsl(var(--hue) 8% 34%), hsl(var(--hue) 8% 17%));
+            border: 1px solid hsl(var(--hue) 8% 26%);
+        }
+        .knob::before {
+            content: "";
+            position: absolute;
+            left: 50%; top: 3px;
+            width: 1.5px; height: 38%;
+            background: var(--panel-dim);
+            transform-origin: bottom center;
+            transform: translateX(-50%) rotate(var(--rot));
+        }
+
+        .panel-lamp {
+            position: absolute;
+            top: var(--sp-3); right: var(--sp-3);
+            width: 7px; height: 7px;
+            border-radius: 50%;
+            background: var(--amber);
+            box-shadow: 0 0 8px 1px hsl(45 80% 50% / 0.55);
+        }
+
+        .keybed {
+            display: flex;
+            height: 54px;
+            background: hsl(var(--hue) 6% 10%);
+            border-top: 1px solid var(--rule);
+        }
+        .key { flex: 1; background: hsl(42 18% 84%); border-right: 1px solid hsl(var(--hue) 8% 12%); }
+        .key-black { background: hsl(var(--hue) 8% 12%); }
+
+        /* ---------- PANELS / FOOT ---------- */
+
+        .panel-msg {
+            border: 1px dashed var(--rule);
+            padding: var(--sp-5) var(--sp-3);
+            text-align: center;
+        }
+        .panel-msg h2 {
+            font-family: var(--display);
+            font-size: var(--step-2);
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: var(--sp-2);
+        }
+        .panel-msg p { color: var(--panel-faint); font-size: var(--step--1); margin-bottom: var(--sp-3); }
+        .panel-actions { display: flex; gap: var(--sp-2); justify-content: center; flex-wrap: wrap; }
+
+        .foot {
+            border-top: 1px solid var(--rule);
+            padding-block: var(--sp-3);
+            color: var(--panel-faint);
+            font-family: var(--mono);
+            font-size: 0.625rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+
+        [hidden] { display: none !important; }
+
+        @media (max-width: 900px) {
+            .editor { grid-template-columns: 1fr; gap: var(--sp-4); }
+            .preview { position: static; }
+            .prod-table .col-year, .prod-table .col-cat { display: none; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { transition-duration: 0.01ms !important; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ============ TOPBAR ============ -->
+<header class="topbar">
+    <div class="wrap topbar-inner">
+        <a class="brand" href="index.html">
+            <span class="brand-mark" aria-hidden="true"></span>
+            <span class="brand-name">Serial Number</span>
+            <span class="boh-tag">Back of house</span>
+        </a>
+        <div class="topbar-side">
+            <span class="who" id="whoami"></span>
+            <a class="top-link" href="../index.html">Storefront</a>
+            <button class="top-link" id="signOut">Sign out</button>
+        </div>
+    </div>
+</header>
+
+<nav class="adminnav" aria-label="Admin">
+    <div class="wrap adminnav-inner">
+        <a href="index.html">Dashboard</a>
+        <a href="products.html" class="is-active" aria-current="page">Products</a>
+        <a href="inventory.html">Inventory</a>
+        <a href="orders.html">Orders</a>
+        <a href="reports.html">Reports</a>
+    </div>
+</nav>
+
+<main class="page">
+    <div class="wrap">
+
+        <!-- ---------- STAFF ONLY ---------- -->
+        <div class="panel-msg" id="restricted" hidden>
+            <h2>Staff only</h2>
+            <p>This side of the counter needs an admin account.</p>
+            <div class="panel-actions">
+                <a class="btn btn-ghost" href="../index.html">Back to the floor</a>
+                <button class="btn" id="switchAccount">Switch account</button>
+            </div>
+        </div>
+
+        <div id="adminView" hidden>
+
+            <p class="eyebrow">Back of house · Products</p>
+            <h1 class="title">Listings</h1>
+
+            <div class="form-note" id="flash" role="alert" hidden></div>
+
+            <!-- ---------- LIST ---------- -->
+            <div id="listView">
+                <div class="listbar">
+                    <input class="field-input search" type="search" id="prodSearch"
+                           placeholder="Filter by maker, model, or serial…"
+                           aria-label="Filter listings" spellcheck="false">
+                    <div class="listbar-actions">
+                        <button class="btn-ghost row-btn" id="restoreSeed">Restore seed</button>
+                        <button class="btn" id="newBtn">New listing</button>
+                    </div>
+                </div>
+
+                <p class="count-line" id="prodCount"></p>
+
+                <table class="prod-table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Serial</th>
+                        <th scope="col">Unit</th>
+                        <th scope="col" class="col-year">Year</th>
+                        <th scope="col" class="col-cat">Category</th>
+                        <th scope="col">Grade</th>
+                        <th scope="col" class="num">Price</th>
+                        <th scope="col">Status</th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody id="prodBody"></tbody>
+                </table>
+            </div>
+
+            <!-- ---------- FORM ---------- -->
+            <div id="formView" hidden>
+                <h2 class="section-title" id="formTitle">New listing</h2>
+
+                <div class="editor">
+                    <form id="unitForm" novalidate>
+
+                        <div class="field-row-2">
+                            <div class="field">
+                                <label class="field-label" for="maker">Maker</label>
+                                <input class="field-input" type="text" id="maker" spellcheck="false">
+                                <p class="field-error" id="makerError" hidden></p>
+                            </div>
+                            <div class="field">
+                                <label class="field-label" for="name">Model</label>
+                                <input class="field-input" type="text" id="name" spellcheck="false">
+                                <p class="field-error" id="nameError" hidden></p>
+                            </div>
+                        </div>
+
+                        <div class="field-row-3">
+                            <div class="field">
+                                <label class="field-label" for="year">Year</label>
+                                <input class="field-input" type="text" id="year" inputmode="numeric" maxlength="4">
+                                <p class="field-error" id="yearError" hidden></p>
+                            </div>
+                            <div class="field">
+                                <label class="field-label" for="serial">Serial</label>
+                                <input class="field-input" type="text" id="serial" spellcheck="false">
+                                <p class="field-error" id="serialError" hidden></p>
+                            </div>
+                            <div class="field">
+                                <label class="field-label" for="price">Price (USD)</label>
+                                <input class="field-input" type="text" id="price" inputmode="decimal" placeholder="1,895.00">
+                                <p class="field-error" id="priceError" hidden></p>
+                            </div>
+                        </div>
+
+                        <div class="field-row-2">
+                            <div class="field">
+                                <label class="field-label" for="grade">Grade</label>
+                                <select class="field-input" id="grade">
+                                    <option value="A">A — Fully functional</option>
+                                    <option value="B">B — Functional, marked</option>
+                                    <option value="C">C — Functional, compromised</option>
+                                    <option value="D">D — Parts or restoration</option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <label class="field-label" for="category">Category</label>
+                                <select class="field-input" id="category">
+                                    <option>Synthesizers</option>
+                                    <option>Drum machines</option>
+                                    <option>Effects</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <p class="slugline">Slug: <span id="slugOut">—</span></p>
+
+                        <div class="field">
+                            <label class="field-label" for="blurb">Blurb</label>
+                            <textarea class="field-input" id="blurb" rows="3"
+                                      placeholder="One or two sentences — what it is and why it matters."></textarea>
+                        </div>
+
+                        <h3 class="section-title">Panel art</h3>
+
+                        <div class="field">
+                            <label class="field-label" for="hue">Hue · <span id="hueOut" class="mono">30</span></label>
+                            <input type="range" id="hue" min="0" max="360" value="30">
+                        </div>
+
+                        <div class="field-row-2">
+                            <div class="field">
+                                <label class="field-label" for="faders">Faders (0–12)</label>
+                                <input class="field-input" type="number" id="faders" min="0" max="12" value="4">
+                            </div>
+                            <div class="field">
+                                <label class="field-label" for="knobs">Knobs (0–12)</label>
+                                <input class="field-input" type="number" id="knobs" min="0" max="12" value="4">
+                            </div>
+                        </div>
+
+                        <div class="field-row-2">
+                            <label class="check">
+                                <input type="checkbox" id="keys">
+                                <span class="check-box" aria-hidden="true"></span>
+                                <span class="check-text">Keybed</span>
+                            </label>
+                            <label class="check">
+                                <input type="checkbox" id="wood">
+                                <span class="check-box" aria-hidden="true"></span>
+                                <span class="check-text">Wood end-cheeks</span>
+                            </label>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn" id="saveBtn">Save listing</button>
+                            <button type="button" class="btn btn-ghost" id="cancelBtn">Cancel</button>
+                        </div>
+                    </form>
+
+                    <aside class="preview" aria-label="Panel preview">
+                        <h3 class="section-title">Preview</h3>
+                        <div id="previewBox"></div>
+                        <p class="preview-note">
+                            The generated front panel — the same code the storefront renders.
+                            No photography, no uploads, one config object.
+                        </p>
+                    </aside>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</main>
+
+<footer class="foot">
+    <div class="wrap">Back of house · internal tooling · Serial Number</div>
+</footer>
+
+</body>
+</html>

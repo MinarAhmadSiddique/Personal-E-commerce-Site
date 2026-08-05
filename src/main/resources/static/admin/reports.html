@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports — Serial Number · Back of house</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ============================================================
+           Serial Number — back of house · reports (internal styles)
+           ============================================================ */
+
+        :root {
+            --chassis:      #151310;
+            --chassis-2:    #1F1C18;
+            --chassis-3:    #2A2620;
+            --panel:        #E8E2D4;
+            --panel-dim:    #B4AD9C;
+            --panel-faint:  #7A7466;
+            --brass:        #B8863A;
+            --brass-lit:    #D9A94E;
+            --amber:        #D4A017;
+            --rule:         #34302A;
+            --rule-soft:    #262320;
+            --ok:           #7FA650;
+            --warn:         #C9992E;
+            --bad:          #96594A;
+            --bad-lit:      #D98878;
+            --grade-a: #7FA650;
+            --grade-b: #C9992E;
+            --grade-c: #C2743A;
+            --grade-d: #96594A;
+
+            --display: "Barlow Condensed", "Arial Narrow", sans-serif;
+            --body:    "Archivo", system-ui, sans-serif;
+            --mono:    "Roboto Mono", ui-monospace, monospace;
+
+            --step--1: 0.8125rem;
+            --step-0:  0.9375rem;
+            --step-1:  1.0625rem;
+            --step-2:  1.375rem;
+            --step-3:  1.875rem;
+            --step-4:  clamp(2.25rem, 4vw, 3rem);
+
+            --sp-1: 0.375rem;
+            --sp-2: 0.75rem;
+            --sp-3: 1.25rem;
+            --sp-4: 2rem;
+            --sp-5: 3rem;
+            --sp-6: 5rem;
+
+            --wrap: 1220px;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            background: var(--chassis);
+            color: var(--panel);
+            font-family: var(--body);
+            font-size: var(--step-0);
+            line-height: 1.55;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, p { margin: 0; }
+        a { color: inherit; text-decoration: none; }
+        button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+
+        .mono {
+            font-family: var(--mono);
+            font-size: 0.8em;
+            letter-spacing: 0.04em;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .wrap { max-width: var(--wrap); margin-inline: auto; padding-inline: var(--sp-3); }
+
+        :focus-visible { outline: 2px solid var(--brass-lit); outline-offset: 3px; }
+
+        /* ---------- TOPBAR + NAV ---------- */
+
+        .topbar { border-bottom: 1px solid var(--rule); }
+        .topbar-inner { display: flex; align-items: center; gap: var(--sp-3); min-height: 60px; }
+
+        .brand { display: flex; align-items: center; gap: var(--sp-2); }
+        .brand-mark {
+            width: 22px; height: 22px; flex: none;
+            border: 1px solid var(--brass);
+            background:
+                    linear-gradient(var(--brass), var(--brass)) center / 100% 2px no-repeat,
+                    linear-gradient(var(--brass), var(--brass)) center / 2px 100% no-repeat;
+        }
+        .brand-name {
+            font-family: var(--display);
+            font-weight: 700;
+            font-size: var(--step-1);
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+        }
+        .boh-tag {
+            font-family: var(--mono);
+            font-size: 0.5625rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--chassis);
+            background: var(--brass);
+            padding: 2px 7px;
+        }
+
+        .topbar-side {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: var(--sp-3);
+            font-family: var(--mono);
+            font-size: 0.6875rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+        .who { color: var(--panel-faint); }
+        .top-link { color: var(--panel-dim); }
+        .top-link:hover { color: var(--brass-lit); }
+
+        .adminnav { border-bottom: 1px solid var(--rule); background: var(--chassis-2); }
+        .adminnav-inner { display: flex; gap: var(--sp-3); overflow-x: auto; }
+        .adminnav a {
+            font-family: var(--mono);
+            font-size: 0.6875rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--panel-dim);
+            padding: var(--sp-2) 0;
+            white-space: nowrap;
+        }
+        .adminnav a:hover { color: var(--brass-lit); }
+        .adminnav a.is-active { color: var(--brass-lit); box-shadow: inset 0 -2px 0 var(--brass); }
+
+        /* ---------- PAGE ---------- */
+
+        .page { padding-block: var(--sp-4) var(--sp-6); }
+
+        .eyebrow {
+            font-family: var(--mono);
+            color: var(--brass);
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            font-size: 0.6875rem;
+        }
+
+        .title {
+            font-family: var(--display);
+            font-size: var(--step-4);
+            font-weight: 700;
+            line-height: 0.95;
+            text-transform: uppercase;
+            margin-block: var(--sp-2) var(--sp-2);
+        }
+
+        .byline {
+            font-family: var(--mono);
+            font-size: 0.6875rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--panel-faint);
+            margin-bottom: var(--sp-4);
+        }
+
+        .section-title {
+            font-family: var(--display);
+            font-size: var(--step-2);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            padding-bottom: var(--sp-2);
+            border-bottom: 1px solid var(--rule);
+            margin-bottom: var(--sp-3);
+        }
+
+        section { margin-bottom: var(--sp-5); }
+
+        .grid2 {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: var(--sp-5);
+            align-items: start;
+        }
+
+        /* ---------- STATS ---------- */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1px;
+            background: var(--rule);
+            border: 1px solid var(--rule);
+        }
+
+        .stat { background: var(--chassis); padding: var(--sp-3); }
+
+        .stat-label {
+            font-family: var(--mono);
+            font-size: 0.625rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--panel-faint);
+        }
+
+        .stat-value {
+            font-family: var(--mono);
+            font-size: var(--step-3);
+            color: var(--brass-lit);
+            margin-top: var(--sp-1);
+            font-variant-numeric: tabular-nums;
+        }
+        .stat-value.dim { color: var(--panel-dim); }
+        .stat-value.bad { color: var(--bad-lit); }
+
+        /* ---------- COLUMN CHART ---------- */
+
+        .colchart {
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            gap: var(--sp-3);
+            height: 210px;
+            border-bottom: 1px solid var(--rule);
+            padding-inline: var(--sp-2);
+            margin-bottom: 2.2rem;
+        }
+
+        .col {
+            position: relative;
+            flex: 1;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            gap: var(--sp-1);
+        }
+
+        .col-val {
+            font-family: var(--mono);
+            font-size: 0.625rem;
+            color: var(--panel-dim);
+            letter-spacing: 0.04em;
+        }
+
+        .col-bar {
+            width: 100%;
+            max-width: 72px;
+            min-height: 2px;
+            background: linear-gradient(180deg, var(--brass-lit), var(--brass));
+        }
+
+        .col-lab {
+            position: absolute;
+            bottom: -1.6rem;
+            font-family: var(--mono);
+            font-size: 0.625rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--panel-faint);
+        }
+
+        /* ---------- HORIZONTAL BARS ---------- */
+
+        .hbar-row {
+            display: grid;
+            grid-template-columns: 8.5rem 1fr auto;
+            gap: var(--sp-2);
+            align-items: center;
+            padding-block: 0.45rem;
+            border-bottom: 1px solid var(--rule-soft);
+        }
+        .hbar-row:last-child { border-bottom: 0; }
+
+        .hbar-name {
+            font-family: var(--mono);
+            font-size: 0.6875rem;
+            letter-spacing: 0.06em;
+            color: var(--panel-dim);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .hbar-track { background: var(--rule-soft); height: 10px; }
+
+        .hbar-fill {
+            height: 100%;
+            min-width: 2px;
+            background: linear-gradient(90deg, var(--brass), var(--brass-lit));
+        }
+        .hbar-fill.g-a { background: var(--grade-a); }
+        .hbar-fill.g-b { background: var(--grade-b); }
+        .hbar-fill.g-c { background: var(--grade-c); }
+        .hbar-fill.g-d { background: var(--grade-d); }
+
+        .hbar-val {
+            font-family: var(--mono);
+            font-size: 0.6875rem;
+            color: var(--panel-dim);
+            font-variant-numeric: tabular-nums;
+            white-space: nowrap;
+        }
+
+        .chart-note {
+            font-family: var(--mono);
+            font-size: 0.625rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--panel-faint);
+            margin-top: var(--sp-2);
+        }
+
+        /* ---------- PANELS / FOOT ---------- */
+
+        .btn {
+            display: inline-block;
+            background: var(--brass);
+            color: var(--chassis);
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            padding: 0.6rem var(--sp-3);
+            border: 1px solid var(--brass);
+            transition: background .15s;
+        }
+        .btn:hover { background: var(--brass-lit); }
+        .btn-ghost { background: transparent; color: var(--brass-lit); }
+        .btn-ghost:hover { background: var(--chassis-2); }
+
+        .panel-msg { border: 1px dashed var(--rule); padding: var(--sp-5) var(--sp-3); text-align: center; }
+        .panel-msg h2 {
+            font-family: var(--display);
+            font-size: var(--step-2);
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: var(--sp-2);
+        }
+        .panel-msg p { color: var(--panel-faint); font-size: var(--step--1); margin-bottom: var(--sp-3); }
+        .panel-actions { display: flex; gap: var(--sp-2); justify-content: center; flex-wrap: wrap; }
+
+        .foot {
+            border-top: 1px solid var(--rule);
+            padding-block: var(--sp-3);
+            color: var(--panel-faint);
+            font-family: var(--mono);
+            font-size: 0.625rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+
+        [hidden] { display: none !important; }
+
+        @media (max-width: 900px) {
+            .grid2 { grid-template-columns: 1fr; gap: var(--sp-4); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { transition-duration: 0.01ms !important; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="topbar">
+    <div class="wrap topbar-inner">
+        <a class="brand" href="index.html">
+            <span class="brand-mark" aria-hidden="true"></span>
+            <span class="brand-name">Serial Number</span>
+            <span class="boh-tag">Back of house</span>
+        </a>
+        <div class="topbar-side">
+            <span class="who" id="whoami"></span>
+            <a class="top-link" href="../index.html">Storefront</a>
+            <button class="top-link" id="signOut">Sign out</button>
+        </div>
+    </div>
+</header>
+
+<nav class="adminnav" aria-label="Admin">
+    <div class="wrap adminnav-inner">
+        <a href="index.html">Dashboard</a>
+        <a href="products.html">Products</a>
+        <a href="inventory.html">Inventory</a>
+        <a href="orders.html">Orders</a>
+        <a href="reports.html" class="is-active" aria-current="page">Reports</a>
+    </div>
+</nav>
+
+<main class="page">
+    <div class="wrap">
+
+        <div class="panel-msg" id="restricted" hidden>
+            <h2>Staff only</h2>
+            <p>This side of the counter needs an admin account.</p>
+            <div class="panel-actions">
+                <a class="btn btn-ghost" href="../index.html">Back to the floor</a>
+                <button class="btn" id="switchAccount">Switch account</button>
+            </div>
+        </div>
+
+        <div id="adminView" hidden>
+
+            <p class="eyebrow">Back of house · Reports</p>
+            <h1 class="title">The numbers</h1>
+            <p class="byline">Revenue counts paid, shipped, and delivered orders · cancelled shows as refunded, never as sales</p>
+
+            <section aria-labelledby="statsTitle">
+                <h2 class="section-title" id="statsTitle">All time</h2>
+                <div class="stats" id="statsRow"></div>
+            </section>
+
+            <div class="grid2">
+                <section aria-labelledby="monthTitle">
+                    <h2 class="section-title" id="monthTitle">Sales by month</h2>
+                    <div class="colchart" id="monthChart"></div>
+                    <p class="chart-note">Completed orders only · month of placement</p>
+                </section>
+
+                <section aria-labelledby="makerTitle">
+                    <h2 class="section-title" id="makerTitle">Top makers</h2>
+                    <div id="makerChart"></div>
+                    <p class="chart-note">Revenue by maker, sold units</p>
+                </section>
+            </div>
+
+            <div class="grid2">
+                <section aria-labelledby="catTitle">
+                    <h2 class="section-title" id="catTitle">Floor value by category</h2>
+                    <div id="catChart"></div>
+                    <p class="chart-note" id="floorTotalNote"></p>
+                </section>
+
+                <section aria-labelledby="gradeTitle">
+                    <h2 class="section-title" id="gradeTitle">Floor by grade</h2>
+                    <div id="gradeChart"></div>
+                    <p class="chart-note">Units currently on the floor</p>
+                </section>
+            </div>
+
+            <p class="chart-note" id="floorNote" hidden>
+                Floor sections read the working catalog — open Products once to initialise it.
+            </p>
+
+        </div>
+    </div>
+</main>
+
+<footer class="foot">
+    <div class="wrap">Back of house · internal tooling · Serial Number</div>
+</footer>
+
+</body>
+</html>

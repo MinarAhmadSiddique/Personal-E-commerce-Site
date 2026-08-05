@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign in — Serial Number</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header">
+    <div class="wrap header-inner">
+        <a class="brand" href="index.html">
+            <span class="brand-mark" aria-hidden="true"></span>
+            <span class="brand-text">
+        <span class="brand-name">Serial Number</span>
+        <span class="brand-sub">Vintage Synthesizers &amp; Studio Gear</span>
+      </span>
+        </a>
+
+        <nav class="site-nav" aria-label="Main">
+            <a href="products.html">Catalog</a>
+            <a href="products.html?category=synthesizers">Synths</a>
+            <a href="products.html?category=drum-machines">Drums</a>
+            <a href="products.html?category=effects">Effects</a>
+        </nav>
+
+        <div class="header-actions">
+            <a class="link-quiet" href="login.html">Sign in</a>
+            <a class="cart-btn" href="cart.html">
+                Cart
+                <span class="cart-count" id="cartCount">0</span>
+            </a>
+        </div>
+
+        <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+
+    <div class="mobile-nav" id="mobileNav" hidden>
+        <a href="products.html">Catalog</a>
+        <a href="products.html?category=synthesizers">Synths</a>
+        <a href="products.html?category=drum-machines">Drums</a>
+        <a href="products.html?category=effects">Effects</a>
+        <a href="login.html">Sign in</a>
+    </div>
+</header>
+
+<main id="main" class="auth">
+    <div class="wrap auth-wrap">
+
+        <!-- ---------- FORM SIDE ---------- -->
+        <section class="auth-form-side" aria-labelledby="formTitle">
+
+            <p class="auth-eyebrow mono">Form SN-02 · Account access</p>
+            <h1 class="auth-title" id="formTitle">Sign in</h1>
+            <p class="auth-lede">
+                Pick up where you left off — held units, order history, and bench notes.
+            </p>
+
+            <!-- Shown when a guarded page bounced the visitor here -->
+            <div class="form-note" id="redirectNote" role="status" hidden></div>
+
+            <!-- Form-level message region -->
+            <div class="formNote" id="formNote" role="alert" hidden></div>
+
+            <form id="loginForm" class="field-set" novalidate>
+
+                <div class="field">
+                    <label class="field-label mono" for="email">
+                        <span class="field-index">01</span> Email
+                    </label>
+                    <input
+                            class="field-input"
+                            type="email"
+                            id="email"
+                            name="email"
+                            autocomplete="email"
+                            spellcheck="false"
+                            placeholder="you@example.com">
+                    <p class="field-error" id="emailError" hidden></p>
+                </div>
+
+                <div class="field">
+                    <label class="field-label mono" for="password">
+                        <span class="field-index">02</span> Password
+                    </label>
+                    <div class="field-with-action">
+                        <input
+                                class="field-input"
+                                type="password"
+                                id="password"
+                                name="password"
+                                autocomplete="current-password"
+                                placeholder="Your password">
+                        <button type="button" class="field-action mono" id="togglePassword" aria-pressed="false">
+                            Show
+                        </button>
+                    </div>
+                    <p class="field-error" id="passwordError" hidden></p>
+                </div>
+
+                <div class="field-row">
+                    <label class="check">
+                        <input type="checkbox" id="remember" checked>
+                        <span class="check-box" aria-hidden="true"></span>
+                        <span class="check-text">Keep me signed in</span>
+                    </label>
+                    <a class="field-aside-link mono" href="#">Forgot password</a>
+                </div>
+
+                <button type="submit" class="btn btn-block" id="submitBtn">Sign in</button>
+
+                <p class="auth-alt">
+                    No account yet?
+                    <a href="signup.html">Create one</a>
+                </p>
+            </form>
+        </section>
+
+        <!-- ---------- ASIDE: demo accounts ---------- -->
+        <aside class="auth-aside" aria-labelledby="asideTitle">
+            <h2 class="auth-aside-title" id="asideTitle">Demo accounts</h2>
+
+            <p class="auth-aside-note" style="margin-top:0">
+                The backend isn't connected yet. These two sign in against local
+                stand-in data so the flow can be walked end to end.
+            </p>
+
+            <dl class="spec-sheet">
+                <div class="spec-row spec-row-lead">
+                    <dt class="mono">Customer</dt>
+                    <dd class="mono">buyer@example.com</dd>
+                </div>
+                <div class="spec-row">
+                    <dt class="mono">Password</dt>
+                    <dd class="mono">bench2026</dd>
+                </div>
+                <div class="spec-row spec-row-lead">
+                    <dt class="mono">Admin</dt>
+                    <dd class="mono">admin@example.com</dd>
+                </div>
+                <div class="spec-row">
+                    <dt class="mono">Password</dt>
+                    <dd class="mono">bench2026</dd>
+                </div>
+            </dl>
+
+            <p class="auth-aside-note">
+                Anything else returns the same rejection a wrong password would —
+                the form never says whether an address is registered.
+            </p>
+        </aside>
+
+    </div>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+    <div class="wrap footer-inner">
+        <div class="footer-brand">
+            <span class="brand-mark" aria-hidden="true"></span>
+            <div>
+                <div class="brand-name">Serial Number</div>
+                <p class="footer-blurb">Bench-tested vintage instruments, sold one at a time.</p>
+            </div>
+        </div>
+
+        <nav class="footer-cols" aria-label="Footer">
+            <div>
+                <h3>Catalog</h3>
+                <a href="products.html?category=synthesizers">Synthesizers</a>
+                <a href="products.html?category=drum-machines">Drum machines</a>
+                <a href="products.html?category=effects">Effects</a>
+                <a href="products.html">Everything</a>
+            </div>
+            <div>
+                <h3>Account</h3>
+                <a href="login.html">Sign in</a>
+                <a href="signup.html">Create account</a>
+                <a href="orders.html">Orders</a>
+                <a href="cart.html">Cart</a>
+            </div>
+            <div>
+                <h3>Shop</h3>
+                <a href="#">Shipping</a>
+                <a href="#">Returns</a>
+                <a href="#">Bench policy</a>
+                <a href="#">Contact</a>
+            </div>
+        </nav>
+    </div>
+
+    <div class="wrap footer-base">
+        <span>© <span id="year"></span> Serial Number</span>
+        <span class="mono">EST. 2026 · BRONX, NY</span>
+    </div>
+</footer>
+<script src="js/login.js"></script>
+</body>
+</html>

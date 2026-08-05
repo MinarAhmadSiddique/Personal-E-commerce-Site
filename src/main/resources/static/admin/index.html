@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard — Serial Number · Back of house</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ============================================================
+           Serial Number — back of house (internal styles)
+           Admin pages are self-contained: same tokens as the storefront,
+           copied in, so this side never breaks when the shop CSS moves.
+           ============================================================ */
+
+        :root {
+            --chassis:      #151310;
+            --chassis-2:    #1F1C18;
+            --chassis-3:    #2A2620;
+            --panel:        #E8E2D4;
+            --panel-dim:    #B4AD9C;
+            --panel-faint:  #7A7466;
+            --brass:        #B8863A;
+            --brass-lit:    #D9A94E;
+            --amber:        #D4A017;
+            --rule:         #34302A;
+            --rule-soft:    #262320;
+            --ok:           #7FA650;
+            --warn:         #C9992E;
+            --bad:          #96594A;
+            --bad-lit:      #D98878;
+
+            --display: "Barlow Condensed", "Arial Narrow", sans-serif;
+            --body:    "Archivo", system-ui, sans-serif;
+            --mono:    "Roboto Mono", ui-monospace, monospace;
+
+            --step--1: 0.8125rem;
+            --step-0:  0.9375rem;
+            --step-1:  1.0625rem;
+            --step-2:  1.375rem;
+            --step-3:  1.875rem;
+            --step-4:  clamp(2.25rem, 4vw, 3rem);
+
+            --sp-1: 0.375rem;
+            --sp-2: 0.75rem;
+            --sp-3: 1.25rem;
+            --sp-4: 2rem;
+            --sp-5: 3rem;
+            --sp-6: 5rem;
+
+            --wrap: 1220px;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            background: var(--chassis);
+            color: var(--panel);
+            font-family: var(--body);
+            font-size: var(--step-0);
+            line-height: 1.55;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, p, table { margin: 0; }
+        a { color: inherit; text-decoration: none; }
+        button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+
+        .mono {
+            font-family: var(--mono);
+            font-size: 0.8em;
+            letter-spacing: 0.04em;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .wrap { max-width: var(--wrap); margin-inline: auto; padding-inline: var(--sp-3); }
+
+        :focus-visible { outline: 2px solid var(--brass-lit); outline-offset: 3px; }
+
+        /* ---------- TOPBAR ---------- */
+
+        .topbar {
+            border-bottom: 1px solid var(--rule);
+            background: var(--chassis);
+        }
+
+        .topbar-inner {
+            display: flex;
+            align-items: center;
+            gap: var(--sp-3);
+            min-height: 60px;
+        }
+
+        .brand { display: flex; align-items: center; gap: var(--sp-2); }
+
+        .brand-mark {
+            width: 22px;
+            height: 22px;
+            flex: none;
+            border: 1px solid var(--brass);
+            background:
+                    linear-gradient(var(--brass), var(--brass)) center / 100% 2px no-repeat,
+                    linear-gradient(var(--brass), var(--brass)) center / 2px 100% no-repeat;
+        }
+
+        .brand-name {
+            font-family: var(--display);
+            font-weight: 700;
+            font-size: var(--step-1);
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+        }
+
+        .boh-tag {
+            font-family: var(--mono);
+            font-size: 0.5625rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--chassis);
+            background: var(--brass);
+            padding: 2px 7px;
+        }
+
+        .topbar-side {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: var(--sp-3);
+            font-family: var(--mono);
+            font-size: 0.6875rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .who { color: var(--panel-faint); }
+        .top-link { color: var(--panel-dim); }
+        .top-link:hover { color: var(--brass-lit); }
+
+        /* ---------- ADMIN NAV ---------- */
+
+        .adminnav {
+            border-bottom: 1px solid var(--rule);
+            background: var(--chassis-2);
+        }
+
+        .adminnav-inner {
+            display: flex;
+            gap: var(--sp-3);
+            overflow-x: auto;
+        }
+
+        .adminnav a {
+            font-family: var(--mono);
+            font-size: 0.6875rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--panel-dim);
+            padding: var(--sp-2) 0;
+            white-space: nowrap;
+        }
+        .adminnav a:hover { color: var(--brass-lit); }
+        .adminnav a.is-active {
+            color: var(--brass-lit);
+            box-shadow: inset 0 -2px 0 var(--brass);
+        }
+
+        /* ---------- PAGE ---------- */
+
+        .page { padding-block: var(--sp-4) var(--sp-6); }
+
+        .eyebrow {
+            font-family: var(--mono);
+            color: var(--brass);
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            font-size: 0.6875rem;
+        }
+
+        .title {
+            font-family: var(--display);
+            font-size: var(--step-4);
+            font-weight: 700;
+            line-height: 0.95;
+            text-transform: uppercase;
+            margin-block: var(--sp-2) var(--sp-4);
+        }
+
+        .section-title {
+            font-family: var(--display);
+            font-size: var(--step-2);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            padding-bottom: var(--sp-2);
+            border-bottom: 1px solid var(--rule);
+            margin-bottom: var(--sp-3);
+        }
+
+        section + section { margin-top: var(--sp-5); }
+
+        /* ---------- STATS ---------- */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1px;
+            background: var(--rule);
+            border: 1px solid var(--rule);
+        }
+
+        .stat { background: var(--chassis); padding: var(--sp-3); }
+
+        .stat-label {
+            font-family: var(--mono);
+            font-size: 0.625rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--panel-faint);
+        }
+
+        .stat-value {
+            font-family: var(--mono);
+            font-size: var(--step-3);
+            color: var(--brass-lit);
+            margin-top: var(--sp-1);
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* ---------- QUEUE TABLE ---------- */
+
+        .queue { width: 100%; border-collapse: collapse; border: 1px solid var(--rule); }
+
+        .queue th {
+            font-family: var(--mono);
+            font-size: 0.625rem;
+            font-weight: 500;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--panel-faint);
+            text-align: left;
+            padding: var(--sp-2) var(--sp-3);
+            border-bottom: 1px solid var(--rule);
+            background: var(--chassis-2);
+        }
+
+        .queue td {
+            font-size: var(--step--1);
+            color: var(--panel-dim);
+            padding: var(--sp-2) var(--sp-3);
+            border-bottom: 1px solid var(--rule-soft);
+        }
+        .queue tr:last-child td { border-bottom: 0; }
+
+        .queue .num { text-align: right; }
+        .queue .oid { color: var(--brass-lit); }
+
+        tr.is-paid td:first-child { box-shadow: inset 3px 0 0 var(--brass); }
+
+        /* ---------- STATUS CHIP ---------- */
+
+        .status {
+            font-family: var(--mono);
+            font-size: 0.625rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            padding: 2px 8px;
+            border: 1px solid var(--rule);
+            color: var(--panel-dim);
+            white-space: nowrap;
+        }
+        .status-paid      { border-color: var(--brass); color: var(--brass-lit); }
+        .status-shipped   { border-color: var(--amber); color: var(--amber); }
+        .status-delivered { border-color: var(--ok);    color: var(--ok); }
+        .status-cancelled { border-color: var(--bad);   color: var(--bad-lit); }
+
+        /* ---------- SECTION TILES ---------- */
+
+        .tiles {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 1px;
+            background: var(--rule);
+            border: 1px solid var(--rule);
+        }
+
+        .tile {
+            display: block;
+            background: var(--chassis);
+            padding: var(--sp-3);
+            transition: background .15s;
+        }
+        .tile:hover { background: var(--chassis-2); }
+        .tile:hover .tile-go { color: var(--brass-lit); }
+
+        .tile-head {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: var(--sp-2);
+        }
+
+        .tile h3 {
+            font-family: var(--display);
+            font-size: var(--step-2);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        .tile-chip {
+            font-family: var(--mono);
+            font-size: 0.625rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--panel-faint);
+            white-space: nowrap;
+        }
+
+        .tile p {
+            color: var(--panel-faint);
+            font-size: var(--step--1);
+            margin-top: var(--sp-1);
+        }
+
+        .tile-go {
+            display: inline-block;
+            margin-top: var(--sp-2);
+            font-family: var(--mono);
+            font-size: 0.6875rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--panel-dim);
+        }
+
+        /* ---------- BUTTONS / PANELS ---------- */
+
+        .btn {
+            display: inline-block;
+            background: var(--brass);
+            color: var(--chassis);
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            padding: 0.75rem var(--sp-3);
+            border: 1px solid var(--brass);
+            transition: background .15s;
+        }
+        .btn:hover { background: var(--brass-lit); }
+
+        .btn-ghost { background: transparent; color: var(--brass-lit); }
+        .btn-ghost:hover { background: var(--chassis-2); }
+
+        .panel-msg {
+            border: 1px dashed var(--rule);
+            padding: var(--sp-5) var(--sp-3);
+            text-align: center;
+        }
+        .panel-msg h2 {
+            font-family: var(--display);
+            font-size: var(--step-2);
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: var(--sp-2);
+        }
+        .panel-msg p {
+            color: var(--panel-faint);
+            font-size: var(--step--1);
+            margin-bottom: var(--sp-3);
+        }
+        .panel-actions {
+            display: flex;
+            gap: var(--sp-2);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .foot {
+            border-top: 1px solid var(--rule);
+            padding-block: var(--sp-3);
+            color: var(--panel-faint);
+            font-family: var(--mono);
+            font-size: 0.625rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+
+        [hidden] { display: none !important; }
+
+        @media (max-width: 720px) {
+            .queue .col-cust { display: none; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { transition-duration: 0.01ms !important; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ============ TOPBAR ============ -->
+<header class="topbar">
+    <div class="wrap topbar-inner">
+        <a class="brand" href="index.html">
+            <span class="brand-mark" aria-hidden="true"></span>
+            <span class="brand-name">Serial Number</span>
+            <span class="boh-tag">Back of house</span>
+        </a>
+        <div class="topbar-side">
+            <span class="who" id="whoami"></span>
+            <a class="top-link" href="../index.html">Storefront</a>
+            <button class="top-link" id="signOut">Sign out</button>
+        </div>
+    </div>
+</header>
+
+<nav class="adminnav" aria-label="Admin">
+    <div class="wrap adminnav-inner">
+        <a href="index.html" class="is-active" aria-current="page">Dashboard</a>
+        <a href="products.html">Products</a>
+        <a href="inventory.html">Inventory</a>
+        <a href="orders.html">Orders</a>
+        <a href="reports.html">Reports</a>
+    </div>
+</nav>
+
+<main class="page">
+    <div class="wrap">
+
+        <!-- ---------- STAFF ONLY ---------- -->
+        <div class="panel-msg" id="restricted" hidden>
+            <h2>Staff only</h2>
+            <p>This side of the counter needs an admin account. The storefront is thataway.</p>
+            <div class="panel-actions">
+                <a class="btn btn-ghost" href="../index.html">Back to the floor</a>
+                <button class="btn" id="switchAccount">Switch account</button>
+            </div>
+        </div>
+
+        <!-- ---------- DASHBOARD ---------- -->
+        <div id="dash" hidden>
+
+            <p class="eyebrow" id="dashDate">Dashboard</p>
+            <h1 class="title">Back of house</h1>
+
+            <section aria-labelledby="statsTitle">
+                <h2 class="section-title" id="statsTitle">The floor, right now</h2>
+                <div class="stats" id="statsRow"></div>
+            </section>
+
+            <section aria-labelledby="queueTitle">
+                <h2 class="section-title" id="queueTitle">Order queue</h2>
+                <table class="queue" aria-describedby="queueNote">
+                    <thead>
+                    <tr>
+                        <th scope="col">Order</th>
+                        <th scope="col">Placed</th>
+                        <th scope="col" class="col-cust">Customer</th>
+                        <th scope="col" class="num">Units</th>
+                        <th scope="col" class="num">Total</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                    </thead>
+                    <tbody id="queueBody"></tbody>
+                </table>
+                <p class="tile-chip" id="queueNote" style="margin-top: var(--sp-2); display: block;">
+                    Brass edge = paid, waiting on a shipment. Full tooling lives in Orders.
+                </p>
+            </section>
+
+            <section aria-labelledby="tilesTitle">
+                <h2 class="section-title" id="tilesTitle">Sections</h2>
+                <div class="tiles" id="tilesRow"></div>
+            </section>
+
+        </div>
+
+    </div>
+</main>
+
+<footer class="foot">
+    <div class="wrap">Back of house · internal tooling · Serial Number</div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders — Serial Number · Back of house</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ============================================================
+           Serial Number — back of house · orders (internal styles)
+           ============================================================ */
+
+        :root {
+            --chassis:      #151310;
+            --chassis-2:    #1F1C18;
+            --chassis-3:    #2A2620;
+            --panel:        #E8E2D4;
+            --panel-dim:    #B4AD9C;
+            --panel-faint:  #7A7466;
+            --brass:        #B8863A;
+            --brass-lit:    #D9A94E;
+            --amber:        #D4A017;
+            --rule:         #34302A;
+            --rule-soft:    #262320;
+            --ok:           #7FA650;
+            --warn:         #C9992E;
+            --bad:          #96594A;
+            --bad-lit:      #D98878;
+
+            --display: "Barlow Condensed", "Arial Narrow", sans-serif;
+            --body:    "Archivo", system-ui, sans-serif;
+            --mono:    "Roboto Mono", ui-monospace, monospace;
+
+            --step--1: 0.8125rem;
+            --step-0:  0.9375rem;
+            --step-1:  1.0625rem;
+            --step-2:  1.375rem;
+            --step-4:  clamp(2.25rem, 4vw, 3rem);
+
+            --sp-1: 0.375rem;
+            --sp-2: 0.75rem;
+            --sp-3: 1.25rem;
+            --sp-4: 2rem;
+            --sp-5: 3rem;
+            --sp-6: 5rem;
+
+            --wrap: 1220px;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            background: var(--chassis);
+            color: var(--panel);
+            font-family: var(--body);
+            font-size: var(--step-0);
+            line-height: 1.55;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, p, table { margin: 0; }
+        a { color: inherit; text-decoration: none; }
+        button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+
+        .mono {
+            font-family: var(--mono);
+            font-size: 0.8em;
+            letter-spacing: 0.04em;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .wrap { max-width: var(--wrap); margin-inline: auto; padding-inline: var(--sp-3); }
+
+        :focus-visible { outline: 2px solid var(--brass-lit); outline-offset: 3px; }
+
+        /* ---------- TOPBAR + NAV ---------- */
+
+        .topbar { border-bottom: 1px solid var(--rule); }
+        .topbar-inner { display: flex; align-items: center; gap: var(--sp-3); min-height: 60px; }
+
+        .brand { display: flex; align-items: center; gap: var(--sp-2); }
+        .brand-mark {
+            width: 22px; height: 22px; flex: none;
+            border: 1px solid var(--brass);
+            background:
+                    linear-gradient(var(--brass), var(--brass)) center / 100% 2px no-repeat,
+                    linear-gradient(var(--brass), var(--brass)) center / 2px 100% no-repeat;
+        }
+        .brand-name {
+            font-family: var(--display);
+            font-weight: 700;
+            font-size: var(--step-1);
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+        }
+        .boh-tag {
+            font-family: var(--mono);
+            font-size: 0.5625rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--chassis);
+            background: var(--brass);
+            padding: 2px 7px;
+        }
+
+        .topbar-side {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: var(--sp-3);
+            font-family: var(--mono);
+            font-size: 0.6875rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+        .who { color: var(--panel-faint); }
+        .top-link { color: var(--panel-dim); }
+        .top-link:hover { color: var(--brass-lit); }
+
+        .adminnav { border-bottom: 1px solid var(--rule); background: var(--chassis-2); }
+        .adminnav-inner { display: flex; gap: var(--sp-3); overflow-x: auto; }
+        .adminnav a {
+            font-family: var(--mono);
+            font-size: 0.6875rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--panel-dim);
+            padding: var(--sp-2) 0;
+            white-space: nowrap;
+        }
+        .adminnav a:hover { color: var(--brass-lit); }
+        .adminnav a.is-active { color: var(--brass-lit); box-shadow: inset 0 -2px 0 var(--brass); }
+
+        /* ---------- PAGE ---------- */
+
+        .page { padding-block: var(--sp-4) var(--sp-6); }
+
+        .eyebrow {
+            font-family: var(--mono);
+            color: var(--brass);
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            font-size: 0.6875rem;
+        }
+
+        .title {
+            font-family: var(--display);
+            font-size: var(--step-4);
+            font-weight: 700;
+            line-height: 0.95;
+            text-transform: uppercase;
+            margin-block: var(--sp-2) var(--sp-4);
+        }
+
+        .form-note {
+            padding: var(--sp-2) var(--sp-3);
+            border-left: 3px solid var(--brass);
+            background: var(--chassis-2);
+            font-size: var(--step--1);
+            margin-bottom: var(--sp-3);
+        }
+        .form-note-error { border-left-color: var(--bad); }
+        .form-note-ok    { border-left-color: var(--ok); }
+
+        /* ---------- TOOLBAR ---------- */
+
+        .toolbar {
+            display: flex;
+            gap: var(--sp-3);
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: var(--sp-3);
+        }
+
+        .filter-tabs { display: flex; gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+
+        .filter-tab {
+            background: var(--chassis);
+            color: var(--panel-dim);
+            font-family: var(--mono);
+            font-size: 0.6875rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 0.5rem var(--sp-2);
+            transition: color .15s, background .15s;
+        }
+        .filter-tab:hover { color: var(--brass-lit); }
+        .filter-tab.is-active {
+            background: var(--chassis-2);
+            color: var(--brass-lit);
+            box-shadow: inset 0 -2px 0 var(--brass);
+        }
+
+        .field-input {
+            background: var(--chassis-2);
+            border: 1px solid var(--rule);
+            border-radius: 0;
+            color: var(--panel);
+            font-family: var(--body);
+            font-size: var(--step-0);
+            padding: 0.55rem var(--sp-2);
+            transition: border-color .15s, background .15s;
+            flex: 1 1 220px;
+            max-width: 340px;
+        }
+        .field-input::placeholder { color: var(--panel-faint); }
+        .field-input:focus { outline: none; border-color: var(--brass); background: var(--chassis-3); }
+
+        /* ---------- TABLE ---------- */
+
+        .q-table { width: 100%; border-collapse: collapse; border: 1px solid var(--rule); }
+
+        .q-table th {
+            font-family: var(--mono);
+            font-size: 0.625rem;
+            font-weight: 500;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--panel-faint);
+            text-align: left;
+            padding: var(--sp-2);
+            border-bottom: 1px solid var(--rule);
+            background: var(--chassis-2);
+        }
+
+        .q-table td {
+            font-size: var(--step--1);
+            color: var(--panel-dim);
+            padding: var(--sp-2);
+            border-bottom: 1px solid var(--rule-soft);
+            vertical-align: middle;
+        }
+        .q-table .num { text-align: right; }
+        .q-table .oid { color: var(--brass-lit); }
+        tr.is-open > td { background: var(--chassis-2); }
+
+        .row-btn {
+            font-family: var(--mono);
+            font-size: 0.625rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--panel-faint);
+            padding: 2px 6px;
+            border: 1px solid var(--rule);
+            transition: color .15s, border-color .15s;
+        }
+        .row-btn:hover { color: var(--brass-lit); border-color: var(--brass); }
+
+        .row-btn.danger { color: var(--bad-lit); border-color: var(--bad); }
+        .row-btn.danger:hover { color: var(--panel); background: var(--bad); }
+
+        /* ---------- STATUS CHIP ---------- */
+
+        .status {
+            font-family: var(--mono);
+            font-size: 0.625rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            padding: 2px 8px;
+            border: 1px solid var(--rule);
+            color: var(--panel-dim);
+            white-space: nowrap;
+        }
+        .status-paid      { border-color: var(--brass); color: var(--brass-lit); }
+        .status-shipped   { border-color: var(--amber); color: var(--amber); }
+        .status-delivered { border-color: var(--ok);    color: var(--ok); }
+        .status-cancelled { border-color: var(--bad);   color: var(--bad-lit); }
+
+        /* ---------- DETAIL ROW ---------- */
+
+        .detail-cell { padding: 0 !important; }
+
+        .detail {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: var(--sp-4);
+            padding: var(--sp-3);
+            border-left: 3px solid var(--brass);
+            background: var(--chassis-2);
+        }
+
+        .d-title {
+            font-family: var(--mono);
+            font-size: 0.625rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--panel-faint);
+            margin-bottom: var(--sp-2);
+            padding-bottom: var(--sp-1);
+            border-bottom: 1px solid var(--rule);
+        }
+
+        .d-item {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto auto;
+            gap: var(--sp-3);
+            padding-block: var(--sp-1);
+            border-bottom: 1px solid var(--rule-soft);
+            font-size: var(--step--1);
+        }
+        .d-item:last-child { border-bottom: 0; }
+        .d-serial { color: var(--panel-faint); }
+
+        .d-addr p { font-size: var(--step--1); color: var(--panel-dim); padding-block: 1px; }
+        .d-note {
+            border-left: 3px solid var(--bad);
+            background: var(--chassis-3);
+            padding: var(--sp-1) var(--sp-2);
+            font-size: var(--step--1);
+            color: var(--panel-dim);
+            margin-top: var(--sp-2);
+        }
+
+        /* ---------- TIMELINE (compact) ---------- */
+
+        .timeline { display: flex; margin-top: var(--sp-2); }
+
+        .tl-step {
+            flex: 1;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+            text-align: center;
+        }
+        .tl-step::before {
+            content: "";
+            position: absolute;
+            top: 4px;
+            right: 50%;
+            width: 100%;
+            height: 1px;
+            background: var(--rule);
+        }
+        .tl-step:first-child::before { display: none; }
+        .tl-step.is-done::before   { background: var(--brass); }
+        .tl-step.is-cancel::before { background: var(--bad); }
+
+        .tl-dot { width: 8px; height: 8px; background: var(--chassis); border: 1px solid var(--rule); z-index: 1; }
+        .is-done .tl-dot   { background: var(--brass); border-color: var(--brass); }
+        .is-cancel .tl-dot { background: var(--bad);   border-color: var(--bad); }
+
+        .tl-name { font-size: 0.5rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--panel-faint); }
+        .is-done .tl-name { color: var(--panel-dim); }
+        .tl-date { font-size: 0.5rem; color: var(--panel-faint); }
+
+        /* ---------- PANELS / FOOT ---------- */
+
+        .btn {
+            display: inline-block;
+            background: var(--brass);
+            color: var(--chassis);
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            padding: 0.6rem var(--sp-3);
+            border: 1px solid var(--brass);
+            transition: background .15s;
+        }
+        .btn:hover { background: var(--brass-lit); }
+        .btn-ghost { background: transparent; color: var(--brass-lit); }
+        .btn-ghost:hover { background: var(--chassis-2); }
+
+        .panel-msg { border: 1px dashed var(--rule); padding: var(--sp-5) var(--sp-3); text-align: center; }
+        .panel-msg h2 {
+            font-family: var(--display);
+            font-size: var(--step-2);
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: var(--sp-2);
+        }
+        .panel-msg p { color: var(--panel-faint); font-size: var(--step--1); margin-bottom: var(--sp-3); }
+        .panel-actions { display: flex; gap: var(--sp-2); justify-content: center; flex-wrap: wrap; }
+
+        .foot {
+            border-top: 1px solid var(--rule);
+            padding-block: var(--sp-3);
+            color: var(--panel-faint);
+            font-family: var(--mono);
+            font-size: 0.625rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+
+        [hidden] { display: none !important; }
+
+        @media (max-width: 820px) {
+            .q-table .col-cust { display: none; }
+            .detail { grid-template-columns: 1fr; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { transition-duration: 0.01ms !important; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ############################################################
+     STATIC SKELETON — no script yet.
+
+     Everything below renders as-is. The rows for the six demo
+     orders are hardcoded HTML; they are also the exact markup
+     the future script must generate. What the script will own:
+
+       1. GUARD      redirect to ../login.html when signed out;
+                     show #restricted for non-ADMIN; fill #whoami;
+                     wire #signOut and #switchAccount.
+       2. DATA       build the queue: ALL_ORDERS + sn.orders
+                     (local) + sn.orderOverrides applied on top.
+       3. TABS       recompute the counts in #statusTabs and
+                     filter rows on click (data-tab).
+       4. SEARCH     filter rows from #qSearch (order № or
+                     customer email).
+       5. ROWS       render #qBody from data — replacing these
+                     static rows — one <tr> per order, plus the
+                     expanded detail <tr> when open.
+       6. ACTIONS    delegate clicks on data-ship / data-deliver /
+                     data-cancel / data-keep / data-confirm /
+                     data-detail; legal transitions only
+                     (CREATED→CANCELLED, PAID→SHIPPED|CANCELLED,
+                     SHIPPED→DELIVERED); write results to
+                     sn.orderOverrides; flash via #flash.
+     ############################################################ -->
+
+<header class="topbar">
+    <div class="wrap topbar-inner">
+        <a class="brand" href="index.html">
+            <span class="brand-mark" aria-hidden="true"></span>
+            <span class="brand-name">Serial Number</span>
+            <span class="boh-tag">Back of house</span>
+        </a>
+        <div class="topbar-side">
+            <!-- script: session email goes here -->
+            <span class="who" id="whoami">admin@example.com</span>
+            <a class="top-link" href="../index.html">Storefront</a>
+            <button class="top-link" id="signOut">Sign out</button>
+        </div>
+    </div>
+</header>
+
+<nav class="adminnav" aria-label="Admin">
+    <div class="wrap adminnav-inner">
+        <a href="index.html">Dashboard</a>
+        <a href="products.html">Products</a>
+        <a href="inventory.html">Inventory</a>
+        <a href="orders.html" class="is-active" aria-current="page">Orders</a>
+        <a href="reports.html">Reports</a>
+    </div>
+</nav>
+
+<main class="page">
+    <div class="wrap">
+
+        <!-- script: shown instead of #adminView when the session role isn't ADMIN -->
+        <div class="panel-msg" id="restricted" hidden>
+            <h2>Staff only</h2>
+            <p>This side of the counter needs an admin account.</p>
+            <div class="panel-actions">
+                <a class="btn btn-ghost" href="../index.html">Back to the floor</a>
+                <button class="btn" id="switchAccount">Switch account</button>
+            </div>
+        </div>
+
+        <!-- script: hidden until the guard passes; visible now so the
+             markup can be seen and styled without any JS -->
+        <div id="adminView">
+
+            <p class="eyebrow">Back of house · Orders</p>
+            <h1 class="title">Order queue</h1>
+
+            <!-- script: transition results announce here -->
+            <div class="form-note" id="flash" role="alert" hidden></div>
+
+            <div class="toolbar">
+                <!-- script: counts recomputed from live data; is-active follows the picked tab -->
+                <div class="filter-tabs" id="statusTabs">
+                    <button class="filter-tab is-active" data-tab="ALL">All · 6</button>
+                    <button class="filter-tab" data-tab="PAID">Paid · 1</button>
+                    <button class="filter-tab" data-tab="SHIPPED">Shipped · 2</button>
+                    <button class="filter-tab" data-tab="DELIVERED">Delivered · 2</button>
+                    <button class="filter-tab" data-tab="CANCELLED">Cancelled · 1</button>
+                </div>
+                <input class="field-input" type="search" id="qSearch"
+                       placeholder="Filter by order № or customer…"
+                       aria-label="Filter orders" spellcheck="false">
+            </div>
+
+            <table class="q-table">
+                <thead>
+                <tr>
+                    <th scope="col">Order</th>
+                    <th scope="col">Placed</th>
+                    <th scope="col" class="col-cust">Customer</th>
+                    <th scope="col" class="num">Units</th>
+                    <th scope="col" class="num">Total</th>
+                    <th scope="col">Status</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+
+                <!-- script: this whole tbody is re-rendered from data.
+                     The rows below are the template it must reproduce. -->
+                <tbody id="qBody">
+
+                <!-- PAID row, shown expanded: Ship + Cancel available,
+                     Detail reads "Close" while its detail row is open -->
+                <tr class="is-open">
+                    <td class="mono oid">SN-1069</td>
+                    <td class="mono">2026-07-18</td>
+                    <td class="mono col-cust">buyer@example.com</td>
+                    <td class="mono num">1</td>
+                    <td class="mono num">$2,375.00</td>
+                    <td><span class="status status-paid">PAID</span></td>
+                    <td>
+                        <button class="row-btn" data-ship="1069">Ship</button>
+                        <button class="row-btn danger" data-cancel="1069">Cancel</button>
+                        <button class="row-btn" data-detail="1069">Close</button>
+                    </td>
+                </tr>
+                <!-- the expanded detail row for SN-1069 -->
+                <tr>
+                    <td class="detail-cell" colspan="7">
+                        <div class="detail">
+                            <div>
+                                <div class="d-title">Units</div>
+                                <div class="d-item">
+                                    <span>Korg Mono/Poly</span>
+                                    <span class="mono d-serial">MP-11203</span>
+                                    <span class="mono">$2,350.00</span>
+                                </div>
+                                <div class="timeline">
+                                    <div class="tl-step is-done">
+                                        <span class="tl-dot" aria-hidden="true"></span>
+                                        <span class="tl-name mono">CREATED</span>
+                                        <span class="tl-date mono">2026-07-18</span>
+                                    </div>
+                                    <div class="tl-step is-done">
+                                        <span class="tl-dot" aria-hidden="true"></span>
+                                        <span class="tl-name mono">PAID</span>
+                                        <span class="tl-date mono">2026-07-18</span>
+                                    </div>
+                                    <div class="tl-step">
+                                        <span class="tl-dot" aria-hidden="true"></span>
+                                        <span class="tl-name mono">SHIPPED</span>
+                                        <span class="tl-date mono">—</span>
+                                    </div>
+                                    <div class="tl-step">
+                                        <span class="tl-dot" aria-hidden="true"></span>
+                                        <span class="tl-name mono">DELIVERED</span>
+                                        <span class="tl-date mono">—</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-addr">
+                                <div class="d-title">Ships to</div>
+                                <p>Sample Buyer</p>
+                                <p>2114 Walton Ave, Apt 4C</p>
+                                <p>Bronx, NY 10453</p>
+                                <div class="d-title" style="margin-top: var(--sp-3)">Payment</div>
+                                <p class="mono">Card ending 4242 · $2,375.00</p>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <!-- SHIPPED rows: only Delivered (and Detail) are legal -->
+                <tr>
+                    <td class="mono oid">SN-1062</td>
+                    <td class="mono">2026-07-06</td>
+                    <td class="mono col-cust">m.silva@example.com</td>
+                    <td class="mono num">1</td>
+                    <td class="mono num">$3,625.00</td>
+                    <td><span class="status status-shipped">SHIPPED</span></td>
+                    <td>
+                        <button class="row-btn" data-deliver="1062">Delivered</button>
+                        <button class="row-btn" data-detail="1062">Detail</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="mono oid">SN-1058</td>
+                    <td class="mono">2026-06-28</td>
+                    <td class="mono col-cust">buyer@example.com</td>
+                    <td class="mono num">1</td>
+                    <td class="mono num">$2,975.00</td>
+                    <td><span class="status status-shipped">SHIPPED</span></td>
+                    <td>
+                        <button class="row-btn" data-deliver="1058">Delivered</button>
+                        <button class="row-btn" data-detail="1058">Detail</button>
+                    </td>
+                </tr>
+
+                <!-- DELIVERED rows: terminal, Detail only -->
+                <tr>
+                    <td class="mono oid">SN-1044</td>
+                    <td class="mono">2026-05-20</td>
+                    <td class="mono col-cust">k.osei@example.com</td>
+                    <td class="mono num">1</td>
+                    <td class="mono num">$2,150.00</td>
+                    <td><span class="status status-delivered">DELIVERED</span></td>
+                    <td>
+                        <button class="row-btn" data-detail="1044">Detail</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="mono oid">SN-1041</td>
+                    <td class="mono">2026-05-02</td>
+                    <td class="mono col-cust">buyer@example.com</td>
+                    <td class="mono num">2</td>
+                    <td class="mono num">$1,710.00</td>
+                    <td><span class="status status-delivered">DELIVERED</span></td>
+                    <td>
+                        <button class="row-btn" data-detail="1041">Detail</button>
+                    </td>
+                </tr>
+
+                <!-- CANCELLED row: terminal, Detail only -->
+                <tr>
+                    <td class="mono oid">SN-1033</td>
+                    <td class="mono">2026-04-10</td>
+                    <td class="mono col-cust">buyer@example.com</td>
+                    <td class="mono num">1</td>
+                    <td class="mono num">$4,125.00</td>
+                    <td><span class="status status-cancelled">CANCELLED</span></td>
+                    <td>
+                        <button class="row-btn" data-detail="1033">Detail</button>
+                    </td>
+                </tr>
+
+                <!-- Cancel confirm state (what the actions cell becomes
+                     after data-cancel is clicked, before confirm/keep):
+
+                <button class="row-btn" data-keep="1069">Keep</button>
+                <button class="row-btn danger" data-confirm="1069">Confirm cancel</button>
+                -->
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</main>
+
+<footer class="foot">
+    <div class="wrap">Back of house · internal tooling · Serial Number</div>
+</footer>
+
+<!-- script lands here -->
+
+</body>
+</html>
