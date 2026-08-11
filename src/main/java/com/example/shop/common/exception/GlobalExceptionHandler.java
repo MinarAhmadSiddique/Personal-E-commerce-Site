@@ -1,5 +1,6 @@
 package com.example.shop.common.exception;
-
+import com.example.shop.order.UnitUnavailableException;
+import com.example.shop.order.PaymentFailedException;
 import com.example.shop.user.EmailAlreadyUsedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +34,18 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(body(HttpStatus.CONFLICT,"That email is already registered."));
     }
 
+
+    @ExceptionHandler(UnitUnavailableException.class)
+    public ResponseEntity<Map<String, Object>> handleUnitUnavailable(UnitUnavailableException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(body(HttpStatus.CONFLICT, ex.getMessage()));
+    }
+
+    @ExceptionHandler(PaymentFailedException.class)
+    public ResponseEntity<Map<String, Object>> handlePaymentFailed(PaymentFailedException ex) {
+        return ResponseEntity.status(HttpStatus.PAYMENT_REQUIRED)
+                .body(body(HttpStatus.PAYMENT_REQUIRED, ex.getMessage()));
+    }
     @ExceptionHandler({BadCredentialsException.class, UsernameNotFoundException.class})
     public ResponseEntity<Map<String,Object>> handleBadCredentials(RuntimeException ex){
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(body(HttpStatus.UNAUTHORIZED,"Email or password is incorrect."));

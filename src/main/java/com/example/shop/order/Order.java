@@ -56,8 +56,7 @@ public class Order {
     @Column(name = "placed_at",nullable = false,updatable = false,insertable = false)
     private OffsetDateTime placedAt;
 
-    protected Order(User user, String s, String city, String state, String zip){
-
+    protected Order() {
     }
 
     public Order(User user,String shipName, String shipLine1,String shipCity,String shipState,String shipZip,String paymentMethod){
@@ -96,5 +95,9 @@ public class Order {
     // inside Order.java, if you want the helper:
     public void markPaid() {
         this.status = OrderStatus.PAID;
+    }
+
+    public List<OrderItem> getItems() {
+        return items;
     }
 }

@@ -24,7 +24,7 @@ public class OrderService {
     }
 
     @Transactional
-    public Order checkout(String userEmail,List<String> slugs,ShippingInfo shipping) {
+    public Order checkout(String userEmail, List<String> slugs, ShippingInfo shipping) {
         if (slugs == null || slugs.isEmpty()) {
             throw new IllegalArgumentException("Cart is empty.");
         }
@@ -32,40 +32,46 @@ public class OrderService {
         User user = userRepository.findByEmail(userEmail.trim().toLowerCase())
                 .orElseThrow(() -> new IllegalStateException("Checkout user not found"));
 
-        Order order = new Order(user, shipping.line1(), shipping.city(), shipping.state(), shipping.zip());
+        // YOUR 7-arg constructor: (user, shipName, shipLine1, shipCity, shipState, shipZip, paymentMethod)
+        Order order = new Order(
+                user,
+                user.getName(),
+                shipping.line1(),
+                shipping.city(),
+                shipping.state(),
+                shipping.zip(),
+                "SIMULATED"
+        );
 
-        long totalCents = 0;
+        long subtotal = 0;
 
         for (String slug : slugs) {
-
             Product product = productRepository.findBySlug(slug)
                     .filter(Product::isActive)
-                    .orElseThrow(() -> new UnitUnavailableException("This listing is no longer availablr. " + slug));
+                    .orElseThrow(() -> new UnitUnavailableException("This listing is no longer available: " + slug));
 
             int claimed = inventoryRepository.markSoldIfOnFloor(product.getId());
-
             if (claimed == 0) {
                 throw new UnitUnavailableException("Sold while you were checking out: " + product.getName());
             }
 
-            OrderItem item = new OrderItem(
-                    product.getId(),
-                    product.getName(),
-                    product.getMaker(),
-                    product.getSerialNumber(),
-                    product.getPriceCents()
-            );
-
+            // YOUR clean 2-arg constructor: (Order, Product) — snapshots automatically
+            OrderItem item = new OrderItem(order, product);
             order.addItem(item);
-            totalCents += product.getPriceCents();
+            subtotal += product.getPriceCents();
         }
 
-        boolean paymentApproved = simulatePayment(totalCents);
+        boolean paymentApproved = simulatePayment(subtotal);
         if (!paymentApproved) {
             throw new PaymentFailedException("Payment was declined.");
         }
 
+        // your Order has nullable=false money fields — must set them
+        order.setSubtotalCents(subtotal);
+        order.setShippingCents(2500);
+        order.setTotalCents(subtotal + 2500);
         order.markPaid();
+
         return orderRepository.save(order);
     }
 
